@@ -1,0 +1,237 @@
+
+#wrapper{font-family: inherit;}
+.container{width:90%; 
+           margin:0 auto;
+        
+              }
+
+#abschluss h1{
+    
+    margin-left: 480px;
+    margin-top: 300px;
+}
+
+              
+#subheader{
+	
+	width:100%;
+	height:100px;
+	background:black;
+	color:white;
+	margin-top: -30px;
+	
+}
+
+
+#subheader li{
+	
+float:right;
+line-height: 30px;
+color:blue;
+text-decoration: none;
+margin-left: 30px;
+font-family: fantasy;
+color: cadetblue;
+margin-top: 40px;
+transition: all 3s ease;
+
+}
+
+#subheader span{
+    
+float:right;
+margin-left: 1px;
+margin-bottom: 22px;
+margin-top: 22px;
+position: relative;
+    
+}
+
+
+
+#subheader li a{
+	
+color:cornflowerblue;
+font-size: 30px;
+text-decoration: none;
+
+}
+
+#subheader li a:hover{
+    
+    color:coral;
+}
+
+
+#main-header{
+    
+    width:100%;
+    height:150px;
+    background: dimgray;
+    float:left;
+}
+
+
+#logo{
+    
+    margin-top: 30px;
+}
+
+#sp1{
+    
+    color:black;
+    font-size: 60px;
+    font-weight: bold;
+    margin-left: 15px;
+    font-family: serif;
+    
+}
+
+#search{
+    
+    float:right;
+    margin-right: 50px;
+   
+}
+
+.searchfeld{
+    
+    width:300px;
+    height:20px;
+    background: #fff;
+    border-radius: 10px;
+    border-style: ridge;
+    border-color: crimson;
+    padding-left: 15px;
+    
+}
+
+.searchsubmit{
+    
+    height: 40px;
+    border-radius: 10px;
+    background: cadetblue;
+    font-family: cursive;
+    font-style: oblique;
+}
+
+.searchsubmit:hover{
+    
+    cursor: pointer;
+}
+
+#login {
+    
+}
+
+.submit{
+    
+    height: 40px;
+    border-radius: 10px;
+    background: cadetblue;
+    font-family: cursive;
+    font-style: oblique;
+    margin-left: 40px;
+    
+}
+
+#register {
+    
+}
+
+
+.submit{
+    
+    height: 40px;
+    border-radius: 10px;
+    background: cadetblue;
+    font-family: cursive;
+    font-style: oblique;
+    margin-left: 120px;
+    
+}
+
+#slide{
+    
+    margin-left:500px;
+    margin-top: 200px;
+}
+
+#container{
+    
+     width:500px; 
+    height: 450px; 
+    margin:130px auto; 
+    padding-top:50px;
+    text-align: center;
+    background-color: rgba(69, 38, 38, 0.6);
+    border-radius:10px;
+    margin-top: 1px;
+}
+
+#container a{
+    
+     color:#fff;
+    font-weight: bolder;
+
+}
+
+#container a:visited {
+    color:#fff;
+}
+
+.button {
+    width:150px;
+    height: 50px;
+    font-size:18px;
+    background-color:#000;
+    color:#fff;
+    border:#fff solid 1px;
+}
+
+.button:hover {
+    background-color:#fff;
+    color:#000;
+    cursor: pointer;
+}
+
+#container input[type="text"], input[type="password"] {
+    width: 300px;
+    height: 50px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-left:5px;
+}
+
+
+#container2 {
+	
+    width:500px; 
+    height: 300px; 
+    margin:130px auto; 
+    padding-top:50px;
+    text-align: center;
+    background-color: rgba(69, 38, 38, 0.6);
+    border-radius:10px;
+    margin-top: 150px;
+}
+
+#container2 a{
+    
+     color:#fff;
+    font-weight: bolder;
+
+}
+
+#container2 a:visited {
+    color:#fff;
+}
+
+#container2 input[type="text"], input[type="password"] {
+    width: 300px;
+    height: 50px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-left:5px;
+}
+
