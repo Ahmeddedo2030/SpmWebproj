@@ -55,7 +55,8 @@ public class validation2 extends HttpServlet {
 				
 				if(extension[1].equals("csv")) {
 					
-					file.write(new File("C:\\Users\\Ahmed\\eclipse-workspaceEE\\SpmWebproj\\WebContent\\csvfiles\\"+file.getName()));
+					file.write(new File("C:/Users/Ð¡Åí×Óhhh/AppData/Roaming/SPB_Data/git/SpmWebproj/SpmWebproj/WebContent/WEB-INF/upload"+file.getName()));
+					
 					
 				} else {
 				

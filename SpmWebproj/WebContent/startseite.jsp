@@ -72,19 +72,40 @@
      
      </div>
      </div>
-     
+
      <div id=container2 style="margin-top:200px; height:250px;">
      
      <h2 style="color:#FACC2E;">${file}</h2>
-     
-     <form action="validation2" enctype='multipart/form-data' method="post">
+     <%
+		int signal = (int)request.getAttribute("signal");         // 获取错误属性
+		if(signal == 0 ) {
+	  %> 
+     <form action="validation2_1" enctype='multipart/form-data' method="post">
      
      <span style="color:#FACC2E; font-size:30px;">Datei.CSV Hochladen</span><br>
      <input  style="margin-left:130px; margin-top:30px;" type="file" name="datei" /><br>
      <button style="margin-top:30px; type="submit" name="submit" class="button" value="fileupload">Hochladen</button><br>
      </form>
-     
+     <%
+		}
+	 %>
+	 <%
+	   if(signal != 0 ) {
+	 %>
+	  <input type="button" value="Start Data Analyse" onclick="check()" >
+	  
+	<script type="text/javascript">
+	function check(){
+		location.href = "/SpmWebproj/validation2_1";
+	}
+	</script>
+	 <%
+		}
+	 %>
+	 
      </div>
+     
+    
     
 </body>
 </html>

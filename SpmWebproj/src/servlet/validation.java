@@ -57,6 +57,7 @@ public class validation extends HttpServlet {
 		if(username.equals("admin") && password.equals("admin")) {
 			
 			request.setAttribute("message","Hallo You have successfully logged in");
+			request.setAttribute("signal",0);
 			request.getRequestDispatcher("startseite.jsp").forward(request, response);
 			
 		} else {
