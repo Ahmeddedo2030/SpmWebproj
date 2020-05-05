@@ -77,10 +77,10 @@
      
      <h2 style="color:#FACC2E;">${file}</h2>
      
-     <form action="validation2" enctype='multipart/form-data' method="post">
+     <form action="UploadValidation" enctype='multipart/form-data' method="post">
      
      <span style="color:#FACC2E; font-size:30px;">Datei.CSV Hochladen</span><br>
-     <input  style="margin-left:130px; margin-top:30px;" type="file" name="datei" /><br>
+     <input  style="margin-left:130px; margin-top:30px;" type="file" accept=".csv" name="datei" /><br>
      <button style="margin-top:30px; type="submit" name="submit" class="button" value="fileupload">Hochladen</button><br>
      </form>
      
