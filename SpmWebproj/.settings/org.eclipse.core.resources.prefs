@@ -1,2 +1,6 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/remotes/origin/master
 eclipse.preferences.version=1
+encoding//WebContent/startseite.jsp=UTF-8
 encoding//src/main/AnalysisTool.java=UTF-8
