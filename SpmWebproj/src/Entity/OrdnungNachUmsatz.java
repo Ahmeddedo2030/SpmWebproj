@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.*;
 
 public class OrdnungNachUmsatz {
-    public  ArrayList<String> OrdnungNachUmsatz(String path) throws Exception {
+    public  Map<String,Integer> OrdnungNachUmsatz(String path) throws Exception {
 
         // Eigenen Dateipfad eintragen, nicht meinen nehmen ;-)
         //String path = "C:/Users/Hilke Fasse/Documents/SS20/SPM/weka/";
@@ -42,14 +42,17 @@ public class OrdnungNachUmsatz {
         });
         //System.out.println(list);//得到了依据Umsatz排好序后的list.list<Hashmap<String,Integer>>可以得到map
         Iterator iter = list.iterator();
-        ArrayList<String> result =new  ArrayList<>();
+       // ArrayList<String> result =new  ArrayList<>();
+        
+        Map<String,Integer> result = new LinkedHashMap<>();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
             Object key = entry.getKey();
-            result.add(key.toString());
+           // result.add(key.toString());
             //System.out.println(key);
-            //Object val = entry.getValue();
-            // System.out.println(val);
+            Object val = entry.getValue();
+            //System.out.println(val);
+            result.put(key.toString(), Integer.parseInt(val.toString()));
         }
        //System.out.println(result);
         return result;

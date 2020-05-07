@@ -57,7 +57,7 @@
          
          <div id="logo">
          
-             <span id="sp1">MeinBuchGeschaeft.de</span> 
+             <span id="sp1">Baudas.de</span> 
          
          </div>
          
@@ -77,7 +77,11 @@
      
      <h2 style="color:#FACC2E;">${file}</h2>
      <%
-		int signal = (int)request.getAttribute("signal");         // 获取错误属性
+		int signal;
+     if(request.getAttribute("signal")==null)         // 获取错误属性
+    	 signal=0;
+     else
+    	 signal=(int)request.getAttribute("signal");
 		if(signal == 0 ) {
 	  %> 
      <form action="validation2_1" enctype='multipart/form-data' method="post">

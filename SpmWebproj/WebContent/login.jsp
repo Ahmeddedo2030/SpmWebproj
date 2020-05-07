@@ -17,7 +17,7 @@
          
          <div id="logo">
          
-             <span id="sp1">MeinBuchGeschaeft.de</span> 
+             <span id="sp1">Baudas.de</span> 
          
          </div>
          

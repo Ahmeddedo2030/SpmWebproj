@@ -1,10 +1,17 @@
 package servlet;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -22,8 +29,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import Entity.FindBestDayandTime;
 import Entity.OrdnungNachUmsatz;
 import Entity.TFDeckung;
-
-
+import Entity.bekommen;
+import Entity.Kunden_Basic_Info;
 
 /**
  * Servlet implementation class validation2_1
@@ -32,6 +39,10 @@ import Entity.TFDeckung;
 public class validation2_1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     ArrayList<String> pathList=new ArrayList<>();
+    LinkedHashMap<String,Integer> All_TF_Artikel_Umsatz = null;
+    LinkedHashMap <String, Float> TF_Artikel_DBeitrag =null;
+    ArrayList<LinkedHashMap<String,Integer>> Best_Z_T =null;
+    ArrayList<HashMap<String,Integer>> Kunden_Basic_Info =null;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -47,29 +58,50 @@ public class validation2_1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {//turn to result of data analyse
 		// TODO Auto-generated method stub
-		//int change = Integer.parseInt(request.getParameter("signal"));
+		int change ;
+		if(request.getParameter("change")==null)
+			change=5;
 		
-		
-		for(int i = 0;i<pathList.size();i++) {
-			
-		 ArrayList<String> TF_Artikel_Umsatz;
+		else
+		    change = Integer.parseInt(request.getParameter("change"))-1;
+		//for(int i = 0;i<pathList.size();i++) 
+		//System.out.print(change);
+		if(pathList.size()>0) {
 		try {
-			ArrayList<String> All_TF_Artikel_Umsatz = new ArrayList<String>(new OrdnungNachUmsatz().OrdnungNachUmsatz(pathList.get(i)));
+			All_TF_Artikel_Umsatz = new LinkedHashMap<>(new OrdnungNachUmsatz().OrdnungNachUmsatz(pathList.get(pathList.size()-1)));
+			TF_Artikel_DBeitrag =new LinkedHashMap<>(new TFDeckung().TFDeckung(pathList.get(pathList.size()-1)));
+			Best_Z_T =new ArrayList<>(new FindBestDayandTime(). FindBesttagUndUhrzeit(pathList.get(pathList.size()-1)));
+			Kunden_Basic_Info =new ArrayList<>(new Kunden_Basic_Info(). Basic_Info(pathList.get(pathList.size()-1)));
+			//æŠŠå‰é¢çš„è¿™ä¸‰ä¸ªåˆ†ææ•°æ®å­˜åˆ°æ–‡ä»¶ä¸­
+			bekommen ff= new bekommen();
 			
-			ArrayList<String> TF_Artikel_Umsatz1 = new ArrayList<>();
-			TF_Artikel_Umsatz1.add(All_TF_Artikel_Umsatz.get(0));
-			TF_Artikel_Umsatz1.add(All_TF_Artikel_Umsatz.get(All_TF_Artikel_Umsatz.size()-1));
-			ArrayList<String> TF_Artikel_DBeitrag =new ArrayList<>(new TFDeckung().TFDeckung(pathList.get(i)));
-		    ArrayList<ArrayList<String>> Best_Z_T =new ArrayList<>(new FindBestDayandTime(). FindBesttagUndUhrzeit(pathList.get(i)));
-			request.setAttribute("TF_Artikel_Umsatz", TF_Artikel_Umsatz1 );
-			request.setAttribute("TF_Artikel_DBeitrag",TF_Artikel_DBeitrag);
-			request.setAttribute("Best_Z",Best_Z_T.get(0));
-			request.setAttribute("Best_T", Best_Z_T.get(1));
+			//æ‰¾å‡ºç”¨æˆ·æƒ³è¦çœ‹çš„ç¬¬changeè¡Œæ•°æ®
 			
-			
+			if(change==5) {//è¡¨ç¤ºæœ‰æ–°æ–‡ä»¶åŠ è½½ï¼Œè¿™ä¸ªæ—¶å€™å°†æ•°æ®ä¿å­˜
+				request.setAttribute("TF_Artikel_Umsatz", All_TF_Artikel_Umsatz );
+				request.setAttribute("TF_Artikel_DBeitrag",TF_Artikel_DBeitrag);
+				request.setAttribute("Best_Z",Best_Z_T.get(0));
+				request.setAttribute("Best_T", Best_Z_T.get(1));
+				ff.put(All_TF_Artikel_Umsatz,TF_Artikel_DBeitrag,Best_Z_T);
+			}else if(change<5&&change>=0) {
+				//System.out.print(change);
+				request.setAttribute("TF_Artikel_Umsatz", ff.get_all_umsatz(change));
+				request.setAttribute("TF_Artikel_DBeitrag", ff.get_AB(change));
+				request.setAttribute("Best_Z", ff.get_ZT(change).get(0));
+				request.setAttribute("Best_T", ff.get_ZT(change).get(1));
+				//System.out.print(ff.get_all_umsatz(change));
+				
+			}
+			request.setAttribute("Sex", Kunden_Basic_Info.get(0));
+			request.setAttribute("Kinder", Kunden_Basic_Info.get(1));
+			request.setAttribute("Beruf", Kunden_Basic_Info.get(2));
+			request.setAttribute("Family", Kunden_Basic_Info.get(3));
+			request.setAttribute("Haus", Kunden_Basic_Info.get(4));
+			request.setAttribute("Stammkunde", Kunden_Basic_Info.get(5));
+			request.setAttribute("Age", Kunden_Basic_Info.get(6));
+			request.setAttribute("Wohnort", Kunden_Basic_Info.get(7));
 			//request.setAttribute("signal", change);
 			request.getRequestDispatcher("Display.jsp").forward(request, response);
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +109,6 @@ public class validation2_1 extends HttpServlet {
 		}
 
 		}
-
 	}
 
 	/**
@@ -88,27 +119,27 @@ public class validation2_1 extends HttpServlet {
 			throws ServletException, IOException {
 		ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
 		//int signal = Integer.parseInt(request.getParameter("signal"));
-		// 1.ÅĞ¶ÏÊÇ·ñÎªÎÄ¼şÉÏ´«±íµ¥
+		// 1.åˆ¤æ–­æ˜¯å¦ä¸ºæ–‡ä»¶ä¸Šä¼ è¡¨å•
 		
 			if (ServletFileUpload.isMultipartContent(request)) {
-			// 2.´´½¨¸öÎÄ¼ş¹¤³§
+			// 2.åˆ›å»ºä¸ªæ–‡ä»¶å·¥å‚
 			FileItemFactory factory = new DiskFileItemFactory();
-			// 3.´´½¨ÎÄ¼şÉÏ´«¶ÔÏó
+			// 3.åˆ›å»ºæ–‡ä»¶ä¸Šä¼ å¯¹è±¡
 			ServletFileUpload fileUpload = new ServletFileUpload(factory);
 
-			// 4.½âÎöÇëÇó
+			// 4.è§£æè¯·æ±‚
 			try {
 				List<FileItem> files = fileUpload.parseRequest(request);
 
 				for (FileItem file : files) {
 					String[] extension = file.getName().split("\\.", 2);
-					if (file.isFormField()) {// ÆÕÍ¨±íµ¥×Ö¶Î
+					if (file.isFormField()) {// æ™®é€šè¡¨å•å­—æ®µ
 						String fieldName = file.getFieldName();
 						String fieldValue = file.getString();
 						System.out.println(fieldName + ":" + fieldValue);
 
 					} else {
-						if (extension[1].equals("csv")) {// ÎÄ¼ş×Ö¶Î
+						if (extension[1].equals("csv")) {// æ–‡ä»¶å­—æ®µ
 							processFile(file);
 						    break;}
 						else {
@@ -135,30 +166,31 @@ public class validation2_1 extends HttpServlet {
 	private void processFile(FileItem item) {
 		String fieldName = item.getFieldName();
 		String fieldValue = item.getString();
-		// 1.»ñÈ¡ÎÄ¼şÀ©Õ¹Ãû
+		// 1.è·å–æ–‡ä»¶æ‰©å±•å
 		String[] suffix = item.getName().split("\\.");
 		//String saveFileName = UUID.randomUUID().toString() + "." + suffix;//randomName
 		String saveFileName = suffix[0].split("\\\\")[suffix[0].split("\\\\").length-1] + "." + suffix[1];
 		System.out.println(saveFileName + ":" + item.getContentType());
 
-		// 2.´´½¨ÎÄ¼ş±£´æµÄÎÄ¼ş¼Ğ
-		String folderPath = "C:/Users/Ğ¡Åí×Óhhh/AppData/Roaming/SPB_Data/git/SpmWebproj/SpmWebproj/WebContent/WEB-INF/upload";
-		System.out.println("±£´æµÄÂ·¾¶:" + folderPath);
+		// 2.åˆ›å»ºæ–‡ä»¶ä¿å­˜çš„æ–‡ä»¶å¤¹
+		String folderPath = "C:/Users/å°å½­å­hhh/AppData/Roaming/SPB_Data/git/SpmWebproj/SpmWebproj/WebContent/WEB-INF/upload";
+		System.out.println("ä¿å­˜çš„è·¯å¾„:" + folderPath);
 		File file = new File(folderPath);
 		if (!file.exists()) {
 			file.mkdirs();
 		}
 
-		// 3.±£´æÎÄ¼ş
-		// ÎÄ¼şÍêÕû±£´æÂ·¾¶
+		// 3.ä¿å­˜æ–‡ä»¶
+		// æ–‡ä»¶å®Œæ•´ä¿å­˜è·¯å¾„
 		String filePath = folderPath + "/" + saveFileName;
 		pathList.add(filePath);
 		try {
 			item.write(new File(filePath));
 
-			item.delete();// É¾³ıÁÙÊ±ÎÄ¼ş
+			item.delete();// åˆ é™¤ä¸´æ—¶æ–‡ä»¶
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-}
+
+ }

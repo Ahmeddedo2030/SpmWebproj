@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,9 +22,8 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericCleaner;
 
 public class TFDeckung {
-	public ArrayList<String> findMaximum(Instances daten, int index) throws Exception {
+	public Map <String, Float> findMaximum(Instances daten, int index) throws Exception {
 		String[] max;
-		//System.out.print(daten.toString());
 		ZeroR za = new ZeroR(); // wekafunktion
 
 		daten.setClass(daten.attribute(index)); // Attribut dessen Maximum
@@ -29,12 +31,9 @@ public class TFDeckung {
 		readText a =new readText();
     	Map<String, Integer> b=a.ReadPrice("C:/Users/小彭子hhh/AppData/Roaming/SPB_Data/git/SpmWebproj/SpmWebproj/WebContent/WEB-INF/upload/deckungsspanne.txt");
 		
-		//System.out.println("shishi"+"  "+daten.instance(10).classValue());
-		//System.out.println("daxiao"+"  "+daten.size());
-		//System.out.println("attdechangdu"+"  "+daten.numAttributes());
-		//System.out.println("shuxingzhi"+"  "+daten.attribute(0));
+		
 		HashMap<String,Integer> map = new HashMap<>();
-		Map<Integer,Float> map1 = new HashMap<>();
+		HashMap<String,Float> map1 = new HashMap<>();
 		for(int j =11;j<daten.numAttributes();j++) {
 	            int tmp = 0;
 	            for (int i = 0; i < daten.size(); i++) {//得到行数alleDaten.numInstances();
@@ -42,18 +41,16 @@ public class TFDeckung {
 	            }
 	            map.put(daten.attribute(j).name(),tmp);
 	        }
+		
 		for(int i = 0;i<map.size();i++) {
-			//System.out.println("duiyingdezhi:    "+b);
-			//System.out.println(daten.attribute(i+11).name()+":    "+(float)b[i]/(b[i]+100));
 			float at = map.get(daten.attribute(i+11).name());
 			at=at*((float)b.get(daten.attribute(i+11).name())/(b.get(daten.attribute(i+11).name())+100));
-			
-			//System.out.println(at);
-			map1.put(i+11, at);
+			map1.put(daten.attribute(i+11).name(), at);
 			
 		}
-		Map <String, Float>mapsort= new HashMap<>();
-		float f = 0;
+		
+		Map <String, Float> result= new LinkedHashMap<>();//hashmap和treeMap是无序的，只有LinkedMap是有序的
+		/*float f = 0;
 		float flop = 100000;
 		for(Map.Entry<Integer, Float> entry: map1.entrySet() ) {//f换成了最大值，flop换成了最小值
 			if(entry.getValue()>f)
@@ -61,39 +58,36 @@ public class TFDeckung {
 			if(entry.getValue()<flop)
 				flop=entry.getValue();
 		}
-		ArrayList<String> result = new ArrayList<>();//result[0] top,result[1] flop
+		//ArrayList<String> result = new ArrayList<>();//result[0] top,result[1] flop
 		for(Map.Entry<Integer, Float> entry: map1.entrySet() ) {
 			if(entry.getValue()==f)
 				//mapsort.put(daten.attribute(entry.getKey()).name(), entry.getValue());
 				//ss = "Top Artikel:"+ daten.attribute(entry.getKey()).name()+" Deckungsbeitrag:"+entry.getValue()+"\n";
-				result.add(daten.attribute(entry.getKey()).name());
+				result.put(daten.attribute(entry.getKey()).name(),entry.getValue());
 			if(entry.getValue()==flop)
 				//System.out.println("最小的商品 "+ daten.attribute(entry.getKey()).name()+entry.getValue());
-				result.add(daten.attribute(entry.getKey()).name());
-		}
-		
-
-
+				result.put(daten.attribute(entry.getKey()).name(),entry.getValue());
+		}*/
+		   ArrayList<Map.Entry<String, Float>> list = new ArrayList<Map.Entry<String, Float>>(map1.entrySet());
+	        Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {//给Map依照value值排序
+	            public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
+	                return (int)(o2.getValue() - o1.getValue());
+	            }
+	        });
+	     //   System.out.println(list);
+	        Iterator<Entry<String, Float>> iter = list.iterator();
+	         while (iter.hasNext()) {
+	             Map.Entry entry = (Map.Entry) iter.next();
+	             Object key = entry.getKey();
+	             Object val = entry.getValue();
+	             result.put(key.toString(), Float.parseFloat(val.toString()));
+	         }
+	       //  System.out.println(result);
 		return result;
 	}
+
 	
-	public static boolean isInt(String s) {
-		if(s=="")
-			return true;
-		String reg = "[\\-|\\+]?\\d+";
-		Pattern p;
-		Matcher m;
-		p = Pattern.compile(reg);
-		m = p.matcher(s);
-		if(m.matches())
-			return true;
-		else
-			return false;
-					
-	}
-	
-	
-	public ArrayList<String> TFDeckung (String path) throws Exception{
+	public Map <String, Float> TFDeckung (String path) throws Exception{
 	
 		
 		TFDeckung a = new TFDeckung();
