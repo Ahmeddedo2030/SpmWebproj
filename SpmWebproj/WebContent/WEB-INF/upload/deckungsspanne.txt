@@ -1,0 +1,15 @@
+Elektrowerkzeuge: 38
+Eisenwaren: 25
+Handwerkzeuge: 25
+Sanitaermaterial: 50
+Schliesstechnik: 25
+Fliesen: 85
+Farben: 33
+Armaturen: 115
+Renovierung: 38
+Elektromaterial: 43
+Baustoffe: 64
+Holz: 25
+Bodenbelag: 72
+Leuchten: 150
+Aktionsware: 7

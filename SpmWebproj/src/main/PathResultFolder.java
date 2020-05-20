@@ -5,25 +5,24 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class PathResultFolder {
-	/*private static String resultFolderName = ;*/
-	/*Es wäre gut, wenn wir eine Kongiurationsdatei irgenwo hätten, 
-	 * in welche wir den Pfad zum Ordner der Analysedateien geschrieben wird, 
-	 * sodass dieser zentral ausgelesen und/oder verändert werden kann. - Finn
-	 */
 	
+	/**
+	 * Gibt den Pfad des Ordners "upload" zur¨¹ck, in welchem alle fuer die Analyse benoetigten Dateien befindlich sein sollten.
+	 * Setzt vorraus, dass "upload" ein direkter Unterordner von "WEB-INF" ist, und dass der Ordner, in welchem sich die .class-Datei von der Klasse PathResultFolder befindet, auch "WEB-INF" untergeordnet ist.
+	 * @return Der Pfad des Ordners "upload"
+	 */
 	public static String getResultFolder() {
-		URL url = PathResultFolder.class.getResource(PathResultFolder.class.getSimpleName() + ".class");	//Takes path of THIS class file
+		URL url = PathResultFolder.class.getResource(PathResultFolder.class.getSimpleName() + ".class");	//Pfad der Datei PathResultFolder.class
 		File folderFile = null;
 		try {
 			folderFile = new File(url.toURI());
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		while(!folderFile.getName().contentEquals("WEB-INF")) {		//Searches Ancestors until it finds directory WEB-INF
+		while(!folderFile.getName().contentEquals("WEB-INF")) {		//Springt in den Ordner dar¨¹ber, bis "WEB-INF" gefunden ist.
 			folderFile=folderFile.getParentFile();
 		}
-		String folderPath = folderFile.getAbsolutePath()+"\\analysisResults\\";
+		String folderPath = folderFile.getAbsolutePath()+"\\upload\\";
 		return folderPath;
 	}
 }

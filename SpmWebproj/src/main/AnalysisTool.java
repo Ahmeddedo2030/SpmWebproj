@@ -6,53 +6,40 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import weka.associations.*;
-import weka.clusterers.SimpleKMeans;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.*;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericCleaner;
 import weka.filters.unsupervised.attribute.Remove;
-import weka.classifiers.rules.*;
 
 public class AnalysisTool {
-	private Instances alleDaten;
+	private Instances alleDaten = null;;
 	private String fileName;
+	private File src = null;
 	private static final Logger log	= Logger.getLogger(AnalysisTool.class.getName());
 	
-	public AnalysisResult doAnalysis(File inputFile) {
-		AnalysisResult result = new AnalysisResult();
-		long startTime = System.nanoTime();
-		datenLaden(inputFile);
-		result.setSourceFileName(fileName);
-		result.setWochentagUmsatz(findBestDay());
-		result.setUhrzeitUmsatz(findBestTime());
-		result.setArtikelUmsatz(ordnenNachUmsatz());
-		result.setArtikelDeckungsbetrag(findMaximum());
-		long endTime = System.nanoTime();
-		long timeElapsed = endTime - startTime;
-		log.info("Analysis in " + timeElapsed / 1000000 + " milliseconds");
-		return result;
+	public AnalysisTool(String sourceFile) {
+		src = new File(sourceFile);
+		fileName = src.getName();
+		datenLaden();
 	}
+
 	
-	public AnalysisResult createAnalysisResult(File inputFile) {
-		return null;
-	}
-	
-	public void datenLaden(File inputFile) {
+	public void datenLaden() {
 		// Übergebene CSV-Datei laden
-		fileName = inputFile.getName();
 		CSVLoader loader = new CSVLoader();
 		try {
-			loader.setSource(inputFile);
+			loader.setSource(src);
 			log.info("Setting sourcefile to " + fileName);
 			} catch (IOException e) {
 			log.info("Could not set sourcefile to " + fileName);
@@ -86,21 +73,17 @@ public class AnalysisTool {
 		}
 	}
 	
-	private List<Map.Entry<String, Integer>> findBestDay() {
-
-		/*
-		 * ******************* Start der Auswertungen ***********************
-		 */
-		// machen die instence kuerzer
+	public LinkedHashMap<String, Integer> umsatzProTag() {
+		// Instanz verkuerzen
 		Instances nurTagundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufstag"), alleDaten.attribute("Einkaufssumme"));
 		
 		nurTagundUmsatz.sort(0);
 		
 		//testWriteArff(nurTagundUmsatz);
 
-		Map<String, Integer> tagumstaz = new HashMap<String, Integer>();
+		Map<String, Integer> tagUmsatzMap = new HashMap<String, Integer>();
 		int sum = 0;
-		for (int i = 0; i < nurTagundUmsatz.size(); i++) {
+		for (int i = 0; i < nurTagundUmsatz.size(); i++) {	//in der Schleife alle Instanzen für ein Attribut durchlaufen 
 
 			if (i == (nurTagundUmsatz.size() - 1)) {
 				String[] str1 = nurTagundUmsatz.get(i).toString().split(",");
@@ -115,7 +98,7 @@ public class AnalysisTool {
 				// System.out.println(str1[1]);
 				if (str1[0].equals(str2[0])) {
 					sum = sum + Integer.parseInt(str1[1]);
-					tagumstaz.put(str1[0], sum);
+					tagUmsatzMap.put(str1[0], sum);
 				}
 
 			} else {
@@ -132,29 +115,36 @@ public class AnalysisTool {
 				if (str1[0].equals(str2[0])) {
 					sum = sum + Integer.parseInt(str1[1]);
 				} else {
-					tagumstaz.put(str1[0], sum);
+					tagUmsatzMap.put(str1[0], sum);
 					sum = 0;
 				}
 			}
 
 		}
 
-		// ordnen die Ergibnisse
-		List<Map.Entry<String, Integer>> list1 = new ArrayList<Map.Entry<String, Integer>>(tagumstaz.entrySet());
+		//Ordnen der Ergibnisse nach Value
+		List<Map.Entry<String, Integer>> list1 = new ArrayList<Map.Entry<String, Integer>>(tagUmsatzMap.entrySet());
 		Collections.sort(list1, new Comparator<Map.Entry<String, Integer>>() {
 			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				return (o2.getValue() - o1.getValue());
 			}
 		});
-
-		/*System.out.println(" Top Einkaufstag : " + list1.get(0).getKey() + "mit Umsatz :" + list1.get(0).getValue()
-				+ "\n Flop Einkaufstag : " + list1.get(list1.size() - 1).getKey() + "mit Umsatz :"
-				+ list1.get(list1.size() - 1).getValue());*/
 		
-		return list1;
+		LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+		Iterator<Map.Entry<String, Integer>> iter1 = list1.iterator();
+		
+		while (iter1.hasNext()) {
+            Map.Entry<String, Integer> entry = iter1.next();
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            result.put(key.toString(), Integer.parseInt(val.toString()));
+        }
+		
+		return result;
 	}
 	
-	private List<Map.Entry<String, Integer>> findBestTime() {
+	public LinkedHashMap<String, Integer> umsatzProZeit() {
+		//Instanz verkuerzen
 		Instances nurZeitundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufsuhrzeit"), alleDaten.attribute("Einkaufssumme"));
 				
 		nurZeitundUmsatz.sort(0);
@@ -198,76 +188,80 @@ public class AnalysisTool {
 			}
 
 		}
+		
+		//Ordnen der Ergibnisse nach Value
 		List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(uhrumstaz.entrySet());
 		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
 			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				return (o2.getValue() - o1.getValue());
 			}
 		});
-		/*System.out.println(" Top Einkaufsuhrzeit : " + list.get(0).getKey() + "mit Umsatz :" + list.get(0).getValue()
-				+ "\n Flop Einkaufsuhrzeit : " + list.get(list.size() - 1).getKey() + "mit Umsatz :"
-				+ list.get(list.size() - 1).getValue());*/
-		return list;
+		
+		LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+		Iterator<Map.Entry<String, Integer>> iter1 = list.iterator();
+		
+		while (iter1.hasNext()) {
+            Map.Entry<String, Integer> entry = iter1.next();
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            result.put(key.toString(), Integer.parseInt(val.toString()));
+        }
+		
+		return result;
 	}
 	
-	private List<Map.Entry<String, Integer>> ordnenNachUmsatz() {
+	public LinkedHashMap<String, Integer> umsatzProArtikel() {
 
         HashMap<String,Integer> map = new HashMap<>();
-        int num = alleDaten.numAttributes();	//Anzahl der Attribute
-        for(int j =11;j<num;j++) {
+        
+        //Anzahl der Attribute aus der zu analysierenden Datei
+        int endPoint = alleDaten.numAttributes();	
+        
+        //Alle Warengruppen stehen hinter dem Attribut "Einkaufssumme", entsprechend ab dessen Index arbeiten
+        int startPoint = alleDaten.attribute("Einkaufssumme").index() + 1;
+        
+        for(int j = startPoint; j < endPoint; j++) {		//für jedes Attribut das eine Warengruppe ist
             int tmp = 0;
-            for (int i = 0; i < alleDaten.size(); i++) {//得到行数alleDaten.numInstances();
-               tmp+= (int)(alleDaten.instance(i).value(j));
+            for (int i = 0; i < alleDaten.size(); i++) {
+               tmp+= (int)(alleDaten.instance(i).value(j));	//den Wert aller Eintraege aufsummieren
             }
-            map.put(alleDaten.attribute(j).name(),tmp);
+            map.put(alleDaten.attribute(j).name(),tmp);		//und in die Ergebnismap mit dem Namen der Warengruppe eintragen
         }
+        
+        //den Inhalt der Ergebnismap nach Value ordnen
         ArrayList<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {//给Map依照value值排序
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return (o2.getValue() - o1.getValue());
             }
         });
-        return list;
+        
+        LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+		Iterator<Map.Entry<String, Integer>> iter1 = list.iterator();
+		
+		while (iter1.hasNext()) {
+            Map.Entry<String, Integer> entry = iter1.next();
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            result.put(key.toString(), Integer.parseInt(val.toString()));
+        }
+        
+        return result;	//geordnetes Ergebnis zurückgeben
     }
 	
-	public List<Map.Entry<String, Integer>> findMaximum() {
-		Instances daten = new Instances(alleDaten);		//alleDaten kopieren
-		//System.out.print(daten.toString());
-		//ZeroR za = new ZeroR(); // wekafunktion
+	public LinkedHashMap<String, Integer> deckungProArtikel() {
+		Map<String, Integer> deckungsSpanne = readDeckungsspanne();			//Map<Warengruppe, Deckungsspanne> einlesen
+		LinkedHashMap<String, Integer> artikelUmsatz = umsatzProArtikel();	//Map<Warengruppe, Einkaufssumme>
+																			//benutze Methode, um Warengruppen gleich sortiert zu haben
 		
-		//daten.setClass(daten.attribute(index)); // Attribut dessen Maximum
-					
-		Map<String, Integer> deckungsspanne= readDeckungsspanne();	//Map<Warengruppe, Deckungsspanne> einlesen
-		
-		//System.out.println("shishi"+"  "+daten.instance(10).classValue());
-		//System.out.println("daxiao"+"  "+daten.size());
-		//System.out.println("attdechangdu"+"  "+daten.numAttributes());
-		//System.out.println("shuxingzhi"+"  "+daten.attribute(0));
-		
-		
-		HashMap<String,Integer> map = new HashMap<>();
-		//Map<Integer,Float> map1 = new HashMap<>();
-		
-		for(int j = 11;j<daten.numAttributes();j++) {		//für jedes Attribut hinter der Einkaufssumme
-			int summe = 0;
-			for (int i = 0; i < daten.size(); i++) {//得到行数alleDaten.numInstances();
-				summe+= (int)(daten.instance(i).value(j));		//Instanzen lesen und Werte des Attributs summieren
-			}
-			map.put(daten.attribute(j).name(),summe);		//Attributname und Summe in Map speichern
-		}
-		
-		List<Map.Entry<String, Integer>> mapEntryList = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
-		
-		ListIterator<Map.Entry<String, Integer>> iter = mapEntryList.listIterator();
-		while (iter.hasNext()) {		//Für jeden Eintrag in der Liste
+		Iterator<Map.Entry<String, Integer>> iter = artikelUmsatz.entrySet().iterator();
+		while (iter.hasNext()) {												//Für jeden Eintrag in der Liste
 			Map.Entry<String, Integer> tmp = iter.next();
-			int absatz = tmp.getValue();
-			int deckung = deckungsspanne.get(tmp.getKey());
-			tmp.setValue(absatz*deckung);	//multipliziere Umsatz mit Deckungsspanne
-			iter.set(tmp);					//Speicher wieder in der Liste
+			int multiplied = tmp.getValue() * deckungsSpanne.get(tmp.getKey());	//Einkaufssumme mit Deckungsbetrag multiplizieren
+			tmp.setValue(multiplied);
 		}
 		
-		return mapEntryList;
+		return artikelUmsatz;
 	}
 	
 	public static boolean isInt(String s) {
@@ -284,10 +278,9 @@ public class AnalysisTool {
 			return false;
 	}
 	
-	public   Map <String,Integer> readDeckungsspanne()
+	public Map <String,Integer> readDeckungsspanne()
     {
 
-        //BufferedReader	ÊÇ¿ÉÒÔ°´ÐÐ¶ÁÈ¡ÎÄ¼þ
         FileInputStream inputStream = null;
 		try {
 			inputStream = new FileInputStream(PathResultFolder.getResultFolder() + "deckungsspanne.txt");
@@ -313,7 +306,7 @@ public class AnalysisTool {
 		}
         
         for(Map.Entry<String,String> entry: map.entrySet() ) {
-        	 String s = entry.getValue().toString().replace(" ", "");	//Bereinigen
+        	 String s = entry.getValue().toString().replace(" ", "");	//Leerzeichen entfernen
              pr.put(entry.getKey(), Integer.parseInt(s));				//Zu Integer konvertieren und in Map speichern
 		}
 

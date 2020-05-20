@@ -57,7 +57,7 @@
          
          <div id="logo">
          
-             <span id="sp1">MeinBuchGeschaeft.de</span> 
+             <span id="sp1">Baudas.de</span> 
          
          </div>
          
@@ -76,8 +76,17 @@
      <div id=container2 style="margin-top:200px; height:250px;">
      
      <h2 style="color:#FACC2E;">${file}</h2>
-     
-     <form action="UploadValidation" enctype='multipart/form-data' method="post">     
+     <%{
+			int signal;
+     		if(request.getAttribute("signal")==null) {        // 获取错误属性
+    		 	signal = 0;
+     		}else{
+    		 	signal=(int)request.getAttribute("signal");
+				if(signal == 0 ) {}
+			}
+     	}
+	  %> 
+     <form action="validation2_1" enctype='multipart/form-data' method="post">    
      <span style="color:#FACC2E; font-size:30px;">Datei.CSV Hochladen</span><br>
      <input  style="margin-left:130px; margin-top:30px;" type="file" accept=".csv" name="datei" /><br>
      <button style="margin-top:30px;" type="submit" name="submit" class="button" value="fileupload">Hochladen</button><br>
