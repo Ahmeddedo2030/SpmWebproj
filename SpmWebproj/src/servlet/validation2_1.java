@@ -1,21 +1,12 @@
 package servlet;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
-import java.util.UUID;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +54,14 @@ public class validation2_1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {//turn to result of data analyse
 		// TODO Auto-generated method stub
-		int change = Integer.parseInt(request.getParameter("change")) - 1;
+		String changeParam = request.getParameter("change");
+		int change;
+		if(changeParam != null) {
+			change = Integer.parseInt(changeParam) - 1;
+		}else {
+			log.info("Ungültiger Parameter. Lade neustes Ergebnis");
+			change = 5;
+		}
 		
 		
 		if(pathList.size()>0) {
@@ -184,7 +182,7 @@ public class validation2_1 extends HttpServlet {
 
 		// 3.保存文件
 		// 文件完整保存路径
-		String filePath = folderPath + saveFileName;
+		String filePath = folderPath + "/" + saveFileName;
 		pathList.add(filePath);
 		try {
 			item.write(new File(filePath));

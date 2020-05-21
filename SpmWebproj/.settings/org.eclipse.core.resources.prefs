@@ -1,10 +1,14 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=branch 'This_Version' of https\://github.com/Ahmeddedo2030/SpmWebproj.git
+>>>>>>>=branch 'new_branch' of https\://github.com/Ahmeddedo2030/SpmWebproj.git
 eclipse.preferences.version=1
 encoding//WebContent/Display.jsp=UTF-8
 encoding//WebContent/Test.jsp=UTF-8
 encoding//WebContent/startseite.jsp=UTF-8
+encoding//src/Entity/FindBestDayandTime.java=UTF-8
+encoding//src/Entity/bekommen.java=UTF-8
+encoding//src/Entity/readText.java=UTF-8
 encoding//src/main/AnalysisTool.java=UTF-8
+encoding//src/servlet/validation2.java=UTF-8
 encoding//src/servlet/validation2_1.java=UTF-8
 encoding/<project>=GBK

@@ -1,57 +1,81 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Login Form</title>
+    <title>Login</title>
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="BauDaS Perfessional Data Analyse" />
+    <!-- //Meta Tags -->
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Style-sheets -->
+    <!-- Bootstrap Css -->
+    <link href="css/bootstrap1.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Bootstrap Css -->
+    <!-- Common Css -->
+    <link href="css/style3.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// Common Css -->
+    <!-- Fontawesome Css -->
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <!--// Fontawesome Css -->
+    <!--// Style-sheets -->
 
+    <!--web-fonts-->
+    <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!--//web-fonts-->
 </head>
 
 <body>
 
-     <!--main Header-->
-    <div id="main-header">
-         
-         <div id="logo">
-         
-             <span id="sp1">Baudas.de</span> 
-         
-         </div>
-         
-         <!--Suchen-->
-         <div id = "search">
-         
-             <input class="searchfeld" type = "text" name="text" placeholder="Hier ihre Suche bitte Eingeben... ">
-             <input class="searchsubmit" type = "submit" name="submit" value="Suchen">
-         
-     
-     </div>
-        </div>
+    <div class="bg-page py-5">
+        <div class="container">
+            <!-- main-heading -->
+            <h2 class = "text-center" style="color:#FACC2E;">${message}</h2>
+            <h1 class="main-title-w3layouts mb-2 text-center text-white">Login</h1>
+            <!--// main-heading -->
+            <div class="form-body-w3-agile text-center w-lg-50 w-sm-75 w-100 mx-auto mt-5">
+                <form action="validation" method="post">
+                      <div class="form-group">
+                        <label>BenutzerName</label>
+                        <input type="text" class="form-control" placeholder="Benutzer Name" required=""  name="username">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" placeholder="Password" required=""  name="password">
+                    </div>
+                    
+                    <div class="d-sm-flex justify-content-between">
+                        <div class="form-check col-md-6 text-sm-left text-center">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary error-w3l-btn mt-sm-5 mt-3 px-4" value="login" name="submit">Login</button>
+                </form>
+                <h1 class="paragraph-agileits mt-2">
+                    <a href="index.jsp">Back to Home</a>
+                </h1>
+            </div>
 
-   <div id="container">
-   <h2 style="color:#FACC2E;">${message}</h2>
-  <h1>Login</h1>
- <form action = "validation" method="post">
-  <label for="Benutzername"><b>Benutzername</b></label><br>
-  <input type="text" name="username" placeholder="Benutzername"><br>
-  <label for="psw"><b>Passwort</b></label><br>
-  <input type="password" name="password" placeholder="passwort"><br>
-  <button type="submit" name="submit" class="button" value="login">Login</button><br>
-  </form>
-    
-</div>
-    
-     <footer>
-        
-        <div id="footer">
-            
-             <p>Copyright © 2020 meinbuchgeschaeft.de, Inc.</p>
-           
+            <!-- Copyright -->
+            <div class="copyright py-xl-3 py-2 mt-xl-5 mt-4 text-center">
+                <p>ï¿½ 2020 BauDas Gesellschaft . All Rights Reserved | Design by
+                    <a href=#> PandesHSEmden </a>
+                </p>
+            </div>
+            <!--// Copyright -->
         </div>
-    </footer>
-    
+    </div>
+
+
+    <!-- Required common Js -->
+    <script src='js/jquery-3.2.1.min.js'></script>
+    <!-- //Required common Js -->
+
+    <!-- Js for bootstrap working-->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- //Js for bootstrap working -->
 </body>
 </html>

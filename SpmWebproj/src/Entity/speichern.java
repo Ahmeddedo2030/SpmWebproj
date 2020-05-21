@@ -8,18 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
-import main.AnalysisTool;
-import main.PathResultFolder;
-
+@Deprecated
 public class speichern {
-	private static final Logger log	= Logger.getLogger(speichern.class.getName());
 	
-	private static List <String> l = new ArrayList<>(); 
+	List <String> l = new ArrayList<>(); 
 	
 	public boolean readFile() {
-		String pathname = PathResultFolder.getResultFolder() + "speicher.txt";
+		String pathname="speicher.txt";
 		try{
 			File file = new File(pathname);
 			if(file.exists()) {
@@ -30,15 +25,16 @@ public class speichern {
 			   while((line = br.readLine())!=null){
 				   this.l.add(line);
 				   i++;
+				//   System.out.println(line);
 			   }
-			   log.info("Anzahl von Speichereintraegen: "+i);
+			   System.out.println("共有行数："+i);
 			   br.close();
 			   read.close();
 			   if(i<=10)
 				   return true;
 			   return false;
 			}else {
-				log.info("Speicherdatei konnte nicht gefunden werden");
+				System.out.println("keine File!");
 				return false;
 			}
 		}catch(IOException e) {
@@ -48,24 +44,24 @@ public class speichern {
 	} 
 	public void writeFile(String Ergebnis) throws IOException {
 	  
-	   String pathname = PathResultFolder.getResultFolder() + "speicher.txt";
+	   String pathname = "speicher.txt";
 	   FileWriter write = new FileWriter(pathname);
 	   BufferedWriter out =  new BufferedWriter(write);
 	   //File file = new File(pathname);
 	   
-		   if(this.l.size()<5) {
-			   log.info("!!!!读取文件成功");
+		   if(this.l.size()<6) {
+			   System.out.println("!!!!读取文件成功");
 			   this.l.add(Ergebnis);	
 			   //System.out.println(l);
 		   }else {
 			   //int i=this.l.size();
 			   //int j=0;
 			   
-			   for(int i=0;this.l.size()>4;i++) {
-				   this.l.remove(0);		
+			   for(int i=0;this.l.size()>5;i++) {
+				   this.l.remove(0);
 				   //this.l.remove(1);
 			   }
-			   log.info("!!!!行数大于5");
+			   System.out.println("!!!!行数大于5");
 			   //this.l.add(Ergebnis);
 		   }
 		   for(int i=0;i<this.l.size();i++) {
