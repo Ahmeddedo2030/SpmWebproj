@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,10 +212,10 @@ TESTIMONIAL SECTION START
 
     <!-- TESTIMONIAL ITEMS START -->
     <div class="row">
-        <!-- 1ST TESTIMONIAL ITEM -->
+     <!-- 1ST TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
             <div class="clientsphoto">
-                <img src="img/Finn.png" alt="Dan">
+                <img src="img/Finn.png" alt="Finn Wundram">
             </div>
 
             <div class="quote">
@@ -230,7 +231,7 @@ TESTIMONIAL SECTION START
         <!-- 2ND TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
             <div class="clientsphoto">
-                <img src="img/Yixin.png" alt="Bill">
+                <img src="img/Yixin.png" alt="Yixin Peng">
             </div>
 
             <div class="quote">
@@ -246,12 +247,12 @@ TESTIMONIAL SECTION START
         <!-- 3RD TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
             <div class="clientsphoto">
-                <img src="img/Du.png" alt="Eric">
+                <img src="img/Du.png" alt="Du Cheng">
             </div>
 
             <div class="quote">
                 <blockquote>
-                    <p>Being on sea,sail;being on land,settle</p>
+                    <p>Doktor von Rhodes Island</p>
                 </blockquote>
                 <h5>Du Cheng</h5>
                 <p>Tester,China</p>
@@ -262,7 +263,7 @@ TESTIMONIAL SECTION START
         <!-- 4TH TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
             <div class="clientsphoto">
-                <img src="img/Ahmed.png" alt="Ramil">
+                <img src="img/Ahmed.png" alt="Ahmed Ahmed">
             </div>
 
             <div class="quote">
@@ -274,6 +275,39 @@ TESTIMONIAL SECTION START
             </div>
         </div>
         <!-- 4TH TESTIMONIAL ITEM END -->
+        
+        
+          <!-- 5TH TESTIMONIAL ITEM -->
+        <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
+            <div class="clientsphoto">
+                <img src="img/Ke.jpg" alt="Yiyi Ke">
+            </div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>Rockbegeisterte</p>
+                </blockquote>
+                <h5>Yiyi Ke</h5>
+                <p>IT Sicherheit Expert,China</p>
+            </div>
+        </div>
+        <!-- 5TH TESTIMONIAL ITEM END -->
+
+        <!-- 6TH TESTIMONIAL ITEM -->
+        <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
+            <div class="clientsphoto">
+                <img src="img/Liu.jpg" alt="Xinyu Liu">
+            </div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>Place for advertisment...</p>
+                </blockquote>
+                <h5>Xinyu Liu</h5>
+                <p>Data Science Expert,China</p>
+            </div>
+        </div>
+        <!-- 6TH TESTIMONIAL ITEM END -->
     </div>
 </div>
 <!-- TESTIMONIAL SECTION END -->
