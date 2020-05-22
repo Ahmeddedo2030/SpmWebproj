@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +71,10 @@ public class bekommen {
 			   while((line = br.readLine())!=null){
 				   l.add(line);
 			   }
-			   if(zeile>=l.size())//ѡ���������������ļ��еĳ��ȣ��ͷ��ؿ�ֵ
+			   if(zeile>=l.size()) {//ѡ���������������ļ��еĳ��ȣ��ͷ��
+				   br.close();
 				   return null;
+			   }
 			   String []s=(l.get(zeile)).split("/"); //����������
 			  // System.out.println("s�ĳ��ȣ�"+s.length+"  "+s[0]);
 			   for(int i=0;i<s.length;i++) {
@@ -90,9 +91,11 @@ public class bekommen {
 						     All.put(mm[0], Integer.parseInt(mm[1]));
 						   
 					   }
+					   br.close();
 					   return All;
 				   }
 			   }
+			   br.close();
 			}else {
 				System.out.println("keine File!");
 				
@@ -120,8 +123,10 @@ public class bekommen {
 			   while((line = br.readLine())!=null){
 				   l.add(line);
 			   }
-			   if(zeile>=l.size())
+			   if(zeile>=l.size()) {
+				   br.close();
 				   return null;
+			   }
 			   String []s=(l.get(zeile)).split("/"); //����������
 			   //System.out.println("s�ĳ��ȣ�"+s.length+"  "+s[0]);
 			   for(int i=0;i<s.length;i++) {
@@ -138,9 +143,11 @@ public class bekommen {
 						     AB.put(mm[0], Float.parseFloat(mm[1]));
 						   
 					   }
+					   br.close();
 					   return AB;
 				   }
 			   }
+			   br.close();
 			}else {
 				System.out.println("keine File!");
 				
@@ -170,8 +177,10 @@ public class bekommen {
 			   while((line = br.readLine())!=null){
 				   l.add(line);
 			   }
-			   if(zeile>=l.size())
+			   if(zeile>=l.size()) {
+				   br.close();
 				   return null;
+			   }
 			   String []s=(l.get(zeile)).split("/"); //����������
 			   //System.out.println("s�ĳ��ȣ�"+s.length+"  "+s[0]);
 			   for(int i=0;i<s.length;i++) {
@@ -205,9 +214,11 @@ public class bekommen {
 						   }
 						   zt.add(t);
 					   }
+					   br.close();
 					   return zt;
 				   }
 			   }
+			   br.close();
 			}else {
 				System.out.println("keine File!");
 				

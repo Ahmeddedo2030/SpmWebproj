@@ -1,13 +1,10 @@
 package Entity;
 import java.io.*;
 import java.util.*;
-import weka.associations.*;
-import weka.clusterers.SimpleKMeans;
 import weka.core.Instances;
 import weka.core.converters.*;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.*;
-import weka.classifiers.rules.*;
 
 @Deprecated
 public class FindBestDayandTime {
@@ -17,7 +14,7 @@ public class FindBestDayandTime {
 		//String path = "C:/Users/lenovo/eclipse-workspace/SPM/src/weka/";
 		//String roh = path + "kd100.csv";
 
-		Instances alleDaten, nurWaren, nurKunden;
+		Instances alleDaten;
 
 		//FindBestDayandTime dt = new FindBestDayandTime();
 
@@ -182,10 +179,10 @@ public class FindBestDayandTime {
 		// System.out.println("Haeufigste Einkaufsuhrzeit: " +
 		// dt.findMaximum(nurZeitundUmsatz, 0));
        ArrayList<LinkedHashMap<String,Integer>> result = new ArrayList<>();
-       Iterator iter1 = list.iterator();
-       Iterator iter2 = list1.iterator();
+       Iterator<Map.Entry<String, Integer>> iter1 = list.iterator();
+       Iterator<Map.Entry<String, Integer>> iter2 = list1.iterator();
         while (iter1.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter1.next();
+        	Map.Entry<String, Integer> entry = iter1.next();
             Object key = entry.getKey();
            // result.add(key.toString());
             //System.out.println(key);
@@ -194,7 +191,7 @@ public class FindBestDayandTime {
             Map1.put(key.toString(), Integer.parseInt(val.toString()));
         }
         while (iter2.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter2.next();
+        	Map.Entry<String, Integer> entry = iter2.next();
             Object key = entry.getKey();
            // result.add(key.toString());
             //System.out.println(key);

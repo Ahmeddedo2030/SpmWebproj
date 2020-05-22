@@ -118,7 +118,6 @@ public class validation2_1 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
 		//int signal = Integer.parseInt(request.getParameter("signal"));
 		// 1.判断是否为文件上传表单
 		
@@ -144,6 +143,7 @@ public class validation2_1 extends HttpServlet {
 							processFile(file);
 						    break;}
 						else {
+							log.info("Ungültige Datei");
 							request.setAttribute("file", "You can only upload CSV Files");
 							request.setAttribute("signal", 0);
 							request.getRequestDispatcher("startseite.jsp").forward(request, response);
@@ -165,8 +165,6 @@ public class validation2_1 extends HttpServlet {
 	}
 
 	private void processFile(FileItem item) {
-		String fieldName = item.getFieldName();
-		String fieldValue = item.getString();
 		// 1.获取文件扩展名
 		String[] suffix = item.getName().split("\\.");
 		String saveFileName = suffix[0].split("\\\\")[suffix[0].split("\\\\").length-1] + "." + suffix[1];

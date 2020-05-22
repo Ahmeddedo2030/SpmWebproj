@@ -57,7 +57,7 @@ public class speichern {
 			   //int i=this.l.size();
 			   //int j=0;
 			   
-			   for(int i=0;this.l.size()>5;i++) {
+			   for(int i = 0; this.l.size() > 5 ;i++) {
 				   this.l.remove(0);
 				   //this.l.remove(1);
 			   }

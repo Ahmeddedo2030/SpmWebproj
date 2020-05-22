@@ -15,10 +15,11 @@ import main.PathResultFolder;
 public class Speicher {
 	private static final Logger log	= Logger.getLogger(Speicher.class.getName());
 	
-	private static List <String> analysisResults = new ArrayList<>(); 
+	private static List <String> analysisResults = null; 
 	
 	public static boolean readFile() {
 		String pathname = PathResultFolder.getResultFolder() + "speicher.txt";
+		analysisResults = new ArrayList<String>();
 		try{
 			File file = new File(pathname);
 			if(file.exists()) {
@@ -82,6 +83,9 @@ public class Speicher {
 	
 	public static String getResult(int index) {
 		String result = null;
+		if(analysisResults == null) {
+			readFile();
+		}
 		//log.info("Suche Ergebnis");
 		if(index < analysisResults.size()) {
 			result = analysisResults.get(index);

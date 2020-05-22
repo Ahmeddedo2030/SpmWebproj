@@ -1,31 +1,19 @@
 package Entity;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import weka.classifiers.rules.ZeroR;
 import weka.core.Instances;
-import weka.core.converters.ArffLoader;
-import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.NumericCleaner;
 
 @Deprecated
 public class TFDeckung {
 	public Map <String, Float> findMaximum(Instances daten, int index) throws Exception {
-		String[] max;
-		ZeroR za = new ZeroR(); // wekafunktion
 
 		daten.setClass(daten.attribute(index)); // Attribut dessen Maximum
 					
@@ -78,7 +66,7 @@ public class TFDeckung {
 	     //   System.out.println(list);
 	        Iterator<Entry<String, Float>> iter = list.iterator();
 	         while (iter.hasNext()) {
-	             Map.Entry entry = (Map.Entry) iter.next();
+	        	 Map.Entry<String, Float>entry = iter.next();
 	             Object key = entry.getKey();
 	             Object val = entry.getValue();
 	             result.put(key.toString(), Float.parseFloat(val.toString()));
@@ -88,7 +76,7 @@ public class TFDeckung {
 	}
 
 	
-	public Map <String, Float> TFDeckung (String path) throws Exception{
+	public Map <String, Float> tFDeckung (String path) throws Exception{
 	
 		
 		TFDeckung a = new TFDeckung();

@@ -14,11 +14,9 @@ public class readText{
         HashMap<String,String> map=new HashMap<>();
         Map <String,Integer> pr = new LinkedHashMap<>();
         String str = null;
-        int i = 0 , size = 0;
         while((str = bufferedReader.readLine()) != null)
         {
             //System.out.println(str);
-        	size++;
             String [] data=str.split(":");
             map.put(data[0],data[1]);
         }
