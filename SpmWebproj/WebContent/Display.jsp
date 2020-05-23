@@ -369,8 +369,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     _LoadingLeft = _PageWidth > 90 ? (_PageWidth - 90) / 2 : 0;
                 //在页面未加载完毕之前显示的loading Html自定义内容
                 var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight +
-                    'px;top:0;background:#FFFFFF;opacity:1.0; filter:alpha(opacity=80);z-index:10000;">' + 
-                    '<div class = "spinner" style = "position: top: 60px; margin:' + _LoadingTop + 'px auto ;" > < /div></div > ';
+                    'px;top:0;background:#FFFFFF;opacity:1.0; filter:alpha(opacity=80);z-index:10000;">
+                    < div
+                class
+                = "spinner"
+                style = "position: top: 60px; margin:' + _LoadingTop + 'px auto ;" > < /div></
+                div > ';
 
                 //呈现loading效果
                 document.write(_LoadingHtml);
