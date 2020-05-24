@@ -8,6 +8,11 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Verantwortlich f체r die Umwandlung von Analyseergebnis zu Strings, und umgekehrt von Strings zu Analyseergebnissen.
+ * Enth채lt weiterhin eine Methode die besagte Strings an die Speicher-Klasse 체bergibt.
+ *
+ */
 public class SpeicherHandler {
 	
 	private static final Logger log = Logger.getLogger(SpeicherHandler.class.getName());
@@ -85,6 +90,8 @@ public class SpeicherHandler {
 	 * @param deckungProArtikel Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat
 	 * @param umsatzProZeit Eine Map, die als Key-Value-Paare "Uhrzeit-Umsatz" hat
 	 * @param umsatzProTag Eine Map, die als Key-Value-Paare "Wochentag-Umsatz" hat
+	 * @see Speicher#readFile()
+	 * @see Speicher#writeFile(String)
 	 * @throws IOException
 	 */
 	public void put(LinkedHashMap<String,Integer> umsatzProArtikel 
@@ -100,9 +107,10 @@ public class SpeicherHandler {
 	}
 	
 	/**
-	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten ㉨ber Umsatz pro Warengruppe
+	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten 체ber Umsatz pro Warengruppe
 	 * @param zeile Der Index des Analyseergebnisses im Speicher
-	 * @return Eine Map, die als Key-Value-Paare "Warengruppe-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergeebnis nicht existiert.
+	 * @see Speicher#getResult(int)
+	 * @return Eine Map, die als Key-Value-Paare "Warengruppe-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergebnis nicht existiert.
 	 */
 	public LinkedHashMap<String,Integer> get_all_umsatz(int zeile) {
 		LinkedHashMap<String,Integer> teilErgebnis = new LinkedHashMap<>();
@@ -130,9 +138,10 @@ public class SpeicherHandler {
 	}
 	
 	/**
-	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten ㉨ber Deckungsbeitrag pro Warengruppe
+	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten 체ber Deckungsbeitrag pro Warengruppe
 	 * @param zeile Der Index des Analyseergebnisses im Speicher
-	 * @return Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergeebnis nicht existiert.
+	 * @see Speicher#getResult(int)
+	 * @return Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergebnis nicht existiert.
 	 */
 	public LinkedHashMap<String, Integer> get_AB(int zeile) {
 		LinkedHashMap<String,Integer> teilErgebnis = new LinkedHashMap<>();
@@ -159,9 +168,10 @@ public class SpeicherHandler {
 	}
 	
 	/**
-	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten ㉨ber Umsatz pro Uhrzeit
+	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten 체ber Umsatz pro Uhrzeit
 	 * @param zeile Der Index des Analyseergebnisses im Speicher
-	 * @return Eine Map, die als Key-Value-Paare "Uhrzeit-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergeebnis nicht existiert.
+	 * @see Speicher#getResult(int)
+	 * @return Eine Map, die als Key-Value-Paare "Uhrzeit-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergebnis nicht existiert.
 	 */
 	public LinkedHashMap<String,Integer> get_Z(int zeile) {
 		LinkedHashMap<String,Integer> teilErgebnis = new LinkedHashMap<>();
@@ -189,9 +199,10 @@ public class SpeicherHandler {
 	}
 	
 	/**
-	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten ㉨ber Umsatz pro Wochentag
+	 * Holt sich die Stringform des Analyseergebnisses aus dem Speicher, und durchsucht diese nach den Daten 체ber Umsatz pro Wochentag
 	 * @param zeile Der Index des Analyseergebnisses im Speicher
-	 * @return Eine Map, die als Key-Value-Paare "Wochentag-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergeebnis nicht existiert.
+	 * @see Speicher#getResult(int)
+	 * @return Eine Map, die als Key-Value-Paare "Wochentag-Umsatz" hat, oder null falls die Daten nicht gefunden werden konnten oder das Ergebnis nicht existiert.
 	 */
 	public LinkedHashMap<String, Integer> get_T(int zeile) {
 		LinkedHashMap<String,Integer> teilErgebnis = new LinkedHashMap<>();

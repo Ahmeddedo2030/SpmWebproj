@@ -12,6 +12,9 @@ import java.util.logging.Logger;
 
 import main.PathResultFolder;
 
+/**
+ * Klasse, die für das tatsächliche Schreiben von Analyseergebnissen in die Speicherdatei "<i>speicher.txt</i>" und das Laden aus dieser hinaus verantwortlich ist.
+ */
 public class Speicher {
 	private static final Logger log	= Logger.getLogger(Speicher.class.getName());
 	/**
@@ -23,7 +26,8 @@ public class Speicher {
 	 * Überschreibt, sofern möglich, analysisResults mit Analyseergebnissen aus der Datei speicher.txt.
 	 * Dies geschieht auch, wenn speicher.txt leer ist, was in analysisResults als leere Liste resultiert.
 	 * Schlägt fehl wenn speicher.txt nicht existiert.
-	 * @return <b>true</b>, wenn analysisResults erfolgreich überschrieben wurde; andernfalls <b>false</b>.
+	 * @see #analysisResults
+	 * @return <i>true</i>, wenn analysisResults erfolgreich überschrieben wurde; andernfalls <i>false</i>.
 	 */
 	public static boolean readFile() {
 		String pathname = PathResultFolder.getResultFolder() + "speicher.txt";
@@ -57,6 +61,7 @@ public class Speicher {
 	
 	/**
 	 * Fügt den übergebenen String zur Liste analysisResults hinzu. Überprüft aber nicht, ob es sich um ein gültiges Analyseergebnis handelt. Danach löscht es solange ältere Einträge bis die Liste wieder auf 5 Einträge reduziert ist.
+	 * @see #analysisResults
 	 * @param ergebnis Die Stringform des Analyseergebnisses, dass zur Liste analysisResults hinzugefügt werden soll.
 	 */
 	public static void addToList(String ergebnis) {
@@ -69,6 +74,7 @@ public class Speicher {
 	
 	/**
 	 * Schreibt die Strings aus der Liste analysisResults in die Datei speicher.txt
+	 * @see #analysisResults
 	 * @throws IOException
 	 */
 	public static void saveToFile() throws IOException {
@@ -94,8 +100,8 @@ public class Speicher {
 	
 	/**
 	 * Ruft addToList und saveToFile auf
-	 * @see addToList
-	 * @see saveToFIle
+	 * @see #addToList
+	 * @see #saveToFIle
 	 * @param ergebnis Der Parameter, der an addToList übergeben wird
 	 * @throws IOException
 	 */
@@ -107,6 +113,8 @@ public class Speicher {
 	/**
 	 * Liefert das Analyseergebnisses aus <i>analysisResults</i> am übergebenen Index sofern vorhanden. Falls <i>analysisResults</i> zuvor noch nicht geladen wurde wird <i>readFile</i> aufgerufen 
 	 * @param index Der index des gesuchten Analyseergebnisses in der Liste <i>analysisResults</i>.
+	 * @see #readFile()
+	 * @see #analysisResults
 	 * @return Die Stringform des gesuchten Analyseergebnisses, oder <i>null</i> wenn nicht vorhanden.
 	 */
 	public static String getResult(int index) {

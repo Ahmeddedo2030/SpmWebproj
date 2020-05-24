@@ -4,10 +4,14 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * Hilfsklasse, deren einziger Zweck es ist, den Pfad des f체r die Analyse relevanten Ordners auf dem Ger채t zu ermitteln.
+ *
+ */
 public class PathResultFolder {
 	
 	/**
-	 * Gibt den Pfad des Ordners "upload" zur㉨ck, in welchem alle fuer die Analyse benoetigten Dateien befindlich sein sollten.
+	 * Gibt den Pfad des Ordners "upload" zur체ck, in welchem alle fuer die Analyse benoetigten Dateien befindlich sein sollten.
 	 * Setzt vorraus, dass "upload" ein direkter Unterordner von "WEB-INF" ist, und dass der Ordner, in welchem sich die .class-Datei von der Klasse PathResultFolder befindet, auch "WEB-INF" untergeordnet ist.
 	 * @return Der Pfad des Ordners "upload"
 	 */
@@ -19,7 +23,7 @@ public class PathResultFolder {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		while(!folderFile.getName().contentEquals("WEB-INF")) {		//Springt in den Ordner dar㉨ber, bis "WEB-INF" gefunden ist.
+		while(!folderFile.getName().contentEquals("WEB-INF")) {		//Springt in den Ordner dar체ber, bis "WEB-INF" gefunden ist.
 			folderFile=folderFile.getParentFile();
 		}
 		String folderPath = folderFile.getAbsolutePath()+"\\upload\\";

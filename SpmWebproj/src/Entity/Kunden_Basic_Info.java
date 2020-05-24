@@ -7,6 +7,7 @@ import java.util.HashMap;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
+
 public class Kunden_Basic_Info {
 
 	public ArrayList<HashMap<String, Integer>> Basic_Info(String path) throws Exception {

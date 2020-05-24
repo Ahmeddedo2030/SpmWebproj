@@ -20,19 +20,46 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NumericCleaner;
 import weka.filters.unsupervised.attribute.Remove;
 
+/**
+ * Diese Klasse enthält die Methoden zur ausertung der Daten aus einer spezifischen Datei.
+ * 
+ *
+ */
 public class AnalysisTool {
-	private Instances alleDaten = null;;
+	/**
+	 * Die Weka-Instanz, die die Daten aus dem Fileobjekt <i>src</i> geladen hat.
+	 * @see #src
+	 */
+	private Instances alleDaten = null;
+	/**
+	 * Der Name der Datei, welche von dieser Klasseninstanz analysiert werden soll.
+	 */
 	private String fileName;
+	
+	/**
+	 * Das Fileobjekt der Datei, die von dieser Klasseninstanz analysiert werden soll.
+	 */
 	private File src = null;
 	private static final Logger log	= Logger.getLogger(AnalysisTool.class.getName());
 	
+	/**
+	 * Konstruktor
+	 * @see #src
+	 * @see #fileName
+	 * @see #datenLaden()
+	 * @param sourceFile Der absolute Pfad der Datei, die analysiert werden soll
+	 */
 	public AnalysisTool(String sourceFile) {
 		src = new File(sourceFile);
 		fileName = src.getName();
 		datenLaden();
 	}
 
-	
+	/**
+	 * Füllt <i>alleDaten</i> mit den Daten aus dem Fileobjekt <i>src</i>. Erstezt weiterhin alle Werte kleiner als 1 mit "?"
+	 * @see #alleDaten
+	 * @see #src
+	 */
 	public void datenLaden() {
 		// Übergebene CSV-Datei laden
 		CSVLoader loader = new CSVLoader();
@@ -71,6 +98,10 @@ public class AnalysisTool {
 		}
 	}
 	
+	/**
+	 * Durchsucht die Wekainstanz nach dem Attribut "<i>Einkaufstag</i> und summiert für jeden Wert dessen den Wert von "<i>Einkaufssumme</i>" auf.
+	 * @return Alle auftrtenden Werte von "<i>Einkaufstag</i>", geordnet nach den jeweiligen Summen von "<i>Einkaufssumme</i>"
+	 */
 	public LinkedHashMap<String, Integer> umsatzProTag() {
 		// Instanz verkuerzen
 		Instances nurTagundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufstag"), alleDaten.attribute("Einkaufssumme"));
@@ -141,6 +172,11 @@ public class AnalysisTool {
 		return result;
 	}
 	
+	
+	/**
+	 * Durchsucht die Wekainstanz nach dem Attribut "<i>Einkaufsuhrzeit</i> und summiert für jeden Wert dessen den Wert von "<i>Einkaufssumme</i>" auf.
+	 * @return Alle auftrtenden Werte von "<i>Einkaufsuhrzeit</i>", geordnet nach den jeweiligen Summen von "<i>Einkaufssumme</i>"
+	 */
 	public LinkedHashMap<String, Integer> umsatzProZeit() {
 		//Instanz verkuerzen
 		Instances nurZeitundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufsuhrzeit"), alleDaten.attribute("Einkaufssumme"));
@@ -208,6 +244,10 @@ public class AnalysisTool {
 		return result;
 	}
 	
+	/**
+	 * Summiert die Werte aller Attribute hinter dem Attribute "<i>Einkaufssumme</i>" auf. Entsprechend sollten in der ursprünglichen .csv-Datei alle für Warengruppen stehenden Attribute an einem höheren Index als das Attribut "<i>Einkaussumme</i>" stehen.
+	 * @return Die Summe der für die Warengruppen stehenden Attribute, geordnet nach Werthöhe
+	 */
 	public LinkedHashMap<String, Integer> umsatzProArtikel() {
 
         HashMap<String,Integer> map = new HashMap<>();
@@ -247,6 +287,13 @@ public class AnalysisTool {
         return result;	//geordnetes Ergebnis zurückgeben
     }
 	
+	/**
+	 * Ruft <i>readDeckungsspanne</i> und <i>umsatzProArtikel</i> auf, und multipliziert die Einkaufsummen aus letzterem mit dem jeweiligen Deckungsbeitrag aus ersterem. Anders als die meisten Methoden in dieser Klasse
+	 * ist die resultierende Map nicht nach den eigenen Werten geordnet, stattdessen ist die Reihenfolge aus <i>umsatzProArtikel</i> beibehalten um einen leichteren Vergleich zu erlauben.
+	 * @see #readDeckungsspanne()
+	 * @see #umsatzProArtikel()
+	 * @return Die Warengruppen mit den jeweiligen Deckungspannen basierend auf den Einkaufssummen.
+	 */
 	public LinkedHashMap<String, Integer> deckungProArtikel() {
 		Map<String, Integer> deckungsSpanne = readDeckungsspanne();			//Map<Warengruppe, Deckungsspanne> einlesen
 		LinkedHashMap<String, Integer> artikelUmsatz = umsatzProArtikel();	//Map<Warengruppe, Einkaufssumme>
@@ -260,6 +307,242 @@ public class AnalysisTool {
 		}
 		
 		return artikelUmsatz;
+	}
+	
+	public ArrayList<HashMap<String, Integer>> kundenBasicInfo(String path) throws Exception {
+
+		// machen die instence kuerzer
+		Instances nurSex = new Instances(alleDaten);
+		for (int i = 0; i < 25; i++) {
+			nurSex.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		}
+
+		// nurSex.sort(0);
+		HashMap<String, Integer> sex = new HashMap<String, Integer>();
+		int m = 0;
+		int f = 0;
+
+		for (int i = 0; i < nurSex.size(); i++) {
+			if (nurSex.get(i).toString().equals("m")) {
+				m++;
+			} else {
+				f++;
+			}
+		}
+
+		sex.put("Herr", m);
+		sex.put("Frau", f);
+
+		// --------------------------------------------------------------------
+		Instances nurKinder = new Instances(alleDaten);
+		for (int i = 0; i < 2; i++) {
+			nurKinder.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		}
+		for (int i = 0; i < 23; i++) {
+			nurKinder.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		}
+
+		HashMap<String, Integer> kinder = new HashMap<String, Integer>();
+		int j = 0;
+		int n = 0;
+
+		for (int i = 0; i < nurKinder.size(); i++) {
+			if (nurKinder.get(i).toString().equals("ja")) {
+				j++;
+			} else {
+				n++;
+			}
+		}
+
+		kinder.put("ja", j);
+		kinder.put("nein", n);
+
+		// --------------------------------------------------------------------
+		Instances nurBeruf = new Instances(alleDaten);
+		for (int i = 0; i < 4; i++) {
+			nurBeruf.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		}
+		for (int i = 0; i < 21; i++) {
+			nurBeruf.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		}
+
+		HashMap<String, Integer> beruf = new HashMap<String, Integer>();
+		j = 0;
+		n = 0;
+
+		for (int i = 0; i < nurBeruf.size(); i++) {
+			if (nurBeruf.get(i).toString().equals("ja")) {
+				j++;
+			} else {
+				n++;
+			}
+		}
+
+		beruf.put("ja", j);
+		beruf.put("nein", n);
+
+		// --------------------------------------------------------------------
+		Instances nurFami = new Instances(alleDaten);
+		for (int i = 0; i < 3; i++) {
+			nurFami.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		}
+		for (int i = 0; i < 22; i++) {
+			nurFami.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		}
+
+		HashMap<String, Integer> fami = new HashMap<String, Integer>();
+		j = 0;
+		n = 0;
+
+		for (int i = 0; i < nurFami.size(); i++) {
+			if (nurFami.get(i).toString().equals("ledig")) {
+				j++;
+			} else {
+				n++;
+			}
+		}
+
+		fami.put("ledig", j);
+		fami.put("Partnerschaft", n);
+		
+		// --------------------------------------------------------------------
+		  Instances Haus = new Instances(alleDaten);
+		  for (int i = 0; i < 8; i++) {
+		   Haus.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		  }
+		  for (int i = 0; i < 17; i++) {
+		   Haus.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		  }
+
+		  HashMap<String, Integer> haus = new HashMap<String, Integer>();
+		  int a = 0;
+		  int b = 0;
+		  int c = 0;
+		  int d = 0;
+		  j = 0;
+
+		  for (int i = 0; i < Haus.size(); i++) {
+		   if (Haus.get(i).toString().equals("<1000")) {
+		    a++;
+		   } else if (Haus.get(i).toString().equals("1000-<2000")) {
+		    b++;
+		   } else if (Haus.get(i).toString().equals("2000-<3200")) {
+		    c++;
+		   } else if (Haus.get(i).toString().equals("3200-<4500")) {
+		    d++;
+		   } else {
+		    j++;
+		   }
+		  }
+
+		  haus.put("<1000", a);
+		  haus.put("1000-<2000", b);
+		  haus.put("2000-<3200", c);
+		  haus.put("3200-<4500", d);
+		  haus.put(">4500", j);
+
+		  // --------------------------------------------------------------------
+		  Instances Skunde = new Instances(alleDaten);
+		  for (int i = 0; i < 9; i++) {
+		   Skunde.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		  }
+		  for (int i = 0; i < 16; i++) {
+		   Skunde.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		  }
+
+		  HashMap<String, Integer> sk = new HashMap<String, Integer>();
+		  a = 0;
+		  b = 0;
+		  c = 0;
+
+		  for (int i = 0; i < Skunde.size(); i++) {
+		   if (Skunde.get(i).toString().equals("0")) {
+		    a++;
+		   } else if (Skunde.get(i).toString().equals("'> 5'")) {
+		    c++;
+		   } else {
+		    b++;
+		   }
+		  }
+
+		  sk.put("0", a);
+		  sk.put("1 bis 5", b);
+		  sk.put("> 5", c);
+		  // --------------------------------------------------------------------
+		// --------------------------------------------------------------------
+		  Instances nuralt = new Instances(alleDaten);
+		  for (int i = 0; i < 1; i++) {
+		   nuralt.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		  }
+		  for (int i = 0; i < 24; i++) {
+		   nuralt.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		  }
+
+		  HashMap<String, Integer> alt = new HashMap<String, Integer>();
+		   a = 0;
+		   b = 0;
+		   c = 0;
+		   d = 0;
+
+		  for (int i = 0; i < nuralt.size(); i++) {
+		   if (nuralt.get(i).toString().equals("18-30")) {
+		    a++;
+		   } else if (nuralt.get(i).toString().equals("31-40")) {
+		    b++;
+		   } else if (nuralt.get(i).toString().equals("41-50")) {
+		    c++;
+		   } else {
+		    d++;
+		   }
+		  }
+
+		  alt.put("18-30", a);
+		  alt.put("31-40", b);
+		  alt.put("41-50", c);
+		  alt.put(">60", d);
+
+		  // --------------------------------------------------------------------
+		  Instances nurWO = new Instances(alleDaten);
+		  for (int i = 0; i < 7; i++) {
+		   nurWO.deleteAttributeAt(0); // einzelnes Attribut rausnehmen
+		  }
+		  for (int i = 0; i < 18; i++) {
+		   nurWO.deleteAttributeAt(1); // einzelnes Attribut rausnehmen
+		  }
+
+		  HashMap<String, Integer> WO = new HashMap<String, Integer>();
+		  a = 0;
+		  b = 0;
+		  c = 0;
+
+		  for (int i = 0; i < nurWO.size(); i++) {
+			  
+		   if (nurWO.get(i).toString().equals("'> 25 km'")) {
+		    c++;
+		   } else if (nurWO.get(i).toString().equals("'10 - 25 km'")) {
+		    b++;
+		   } else {
+		    a++;
+		   }
+		  }
+
+		  WO.put("< 10 km", a);
+		  WO.put("10 - 25 km", b);
+		  WO.put("> 25 km", c);
+		/* ***************************************************************************/
+		/* ***************************************************************************/
+		/* ***************************************************************************/
+		ArrayList<HashMap<String,Integer>> result = new ArrayList<>();
+		result.add(sex);
+		result.add(kinder);
+		result.add(beruf);
+		result.add(fami);
+		result.add(haus);
+		result.add(sk);
+		result.add(alt);
+		result.add(WO);
+		//System.out.print(result);
+		return result;
 	}
 	
 	public static boolean isInt(String s) {
@@ -276,6 +559,10 @@ public class AnalysisTool {
 			return false;
 	}
 	
+	/**
+	 * Liest die den Warengruppen zugehörigen Deckunsspannen aus der Datei "deckungsspanne.txt" aus. In dieser Datei müssen die Deckungsspannen in Zeilen aufgeteilt sein damit diese MEthode funktioniert.
+	 * @return Die Warengruppen als Schlüssel und die zugehörigen Deckunsspannen als Werte in einer Map
+	 */
 	public Map <String,Integer> readDeckungsspanne()
     {
 
@@ -295,7 +582,7 @@ public class AnalysisTool {
         try {
 			while((str = bufferedReader.readLine()) != null)
 			{
-			    String [] data=str.split(":");	//trenne Warengruppe von ihrer Deckungsspanne
+			    String [] data = str.split(":");	//trenne Warengruppe von ihrer Deckungsspanne
 			    map.put(data[0],data[1]);		//in Map speichern
 			}
 			log.info("File read successfully");
@@ -319,6 +606,7 @@ public class AnalysisTool {
 
     }
 	
+	
 	private Instances reduceToAttributes(Instances input, Attribute... attributes) {
 		Instances result = new Instances(input);
 		Remove removalFilter = new Remove();
@@ -327,7 +615,7 @@ public class AnalysisTool {
 		String targetNames="";
 		int[] targetAttributes = new int[attributes.length]; 
 		for(int i = 0; i < attributes.length; i++) {
-			targetAttributes[i]=attributes[i].index();
+			targetAttributes[i] = attributes[i].index();
 			targetNames += " " + attributes[i].name();
 		}
 		removalFilter.setAttributeIndicesArray(targetAttributes);
@@ -350,6 +638,10 @@ public class AnalysisTool {
 		return result;
 	}
 	
+	/**
+	 * Speichert eine Wekainstanz als .arff-Datei. Nur zu Testzwecken, nicht im Anwendungsverlauf verwendet.
+	 * @param test Die Wekainstanz, die als .arff-Datei gespeichert werden soll
+	 */
 	private void testWriteArff(Instances test) {	//for testing purposes
 		ArffSaver saver = new ArffSaver();
 		saver.setInstances(test);
