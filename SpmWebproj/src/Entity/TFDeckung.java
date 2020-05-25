@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
@@ -18,14 +20,25 @@ public class TFDeckung {
 		daten.setClass(daten.attribute(index)); // Attribut dessen Maximum
 					
 		readText a =new readText();
-    	Map<String, Integer> b=a.ReadPrice("C:/Users/Ğ¡Åí×Óhhh/Desktop/SpmWebproj/WebContent/WEB-INF/upload/deckungsspanne.txt");
+		String p = TFDeckung.class.getResource("").getPath();
+		//System.out.println(a);
+		String[] pt = p.split("/");//Pfad der Datei spmtest
+		String Path = "";
+		for (int i = 1; i < pt.length-4;i++) {//exkl.""
+			Path += pt[i];
+			Path +="/";
+		}
+		//System.out.println(Path);
+		String path = Path+"WebContent/WEB-INF/upload/deckungsspanne.txt";
+
+    	Map<String, Integer> b=a.ReadPrice(path);//"C:/Users/å°å½­å­hhh/Desktop/javaç¨‹åº/SpmWebproj/SpmWebproj/WebContent/WEB-INF/upload/deckungsspanne.txt"
 		
 		
 		HashMap<String,Integer> map = new HashMap<>();
 		HashMap<String,Float> map1 = new HashMap<>();
 		for(int j =11;j<daten.numAttributes();j++) {
 	            int tmp = 0;
-	            for (int i = 0; i < daten.size(); i++) {//µÃµ½ĞĞÊıalleDaten.numInstances();
+	            for (int i = 0; i < daten.size(); i++) {//ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½alleDaten.numInstances();
 	               tmp+= (int)(daten.instance(i).value(j));
 	            }
 	            map.put(daten.attribute(j).name(),tmp);
@@ -38,10 +51,10 @@ public class TFDeckung {
 			
 		}
 		
-		Map <String, Float> result= new LinkedHashMap<>();//hashmapºÍtreeMapÊÇÎŞĞòµÄ£¬Ö»ÓĞLinkedMapÊÇÓĞĞòµÄ
+		Map <String, Float> result= new LinkedHashMap<>();//hashmapï¿½ï¿½treeMapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Ö»ï¿½ï¿½LinkedMapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		/*float f = 0;
 		float flop = 100000;
-		for(Map.Entry<Integer, Float> entry: map1.entrySet() ) {//f»»³ÉÁË×î´óÖµ£¬flop»»³ÉÁË×îĞ¡Öµ
+		for(Map.Entry<Integer, Float> entry: map1.entrySet() ) {//fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½flopï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡Öµ
 			if(entry.getValue()>f)
 				f=entry.getValue();
 			if(entry.getValue()<flop)
@@ -54,11 +67,11 @@ public class TFDeckung {
 				//ss = "Top Artikel:"+ daten.attribute(entry.getKey()).name()+" Deckungsbeitrag:"+entry.getValue()+"\n";
 				result.put(daten.attribute(entry.getKey()).name(),entry.getValue());
 			if(entry.getValue()==flop)
-				//System.out.println("×îĞ¡µÄÉÌÆ· "+ daten.attribute(entry.getKey()).name()+entry.getValue());
+				//System.out.println("ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½Æ· "+ daten.attribute(entry.getKey()).name()+entry.getValue());
 				result.put(daten.attribute(entry.getKey()).name(),entry.getValue());
 		}*/
 		   ArrayList<Map.Entry<String, Float>> list = new ArrayList<Map.Entry<String, Float>>(map1.entrySet());
-	        Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {//¸øMapÒÀÕÕvalueÖµÅÅĞò
+	        Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {//ï¿½ï¿½Mapï¿½ï¿½ï¿½ï¿½valueÖµï¿½ï¿½ï¿½ï¿½
 	            public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
 	                return (int)(o2.getValue() - o1.getValue());
 	            }
