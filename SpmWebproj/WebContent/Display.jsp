@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Baudas/Ergebnisse-Analyse</title>
+    <title>Baudas/Data-Analyse</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Glance Design Dashboard Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <meta name="keywords" content="Daudas Professional Construction Company"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -22,9 +21,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- Custom CSS -->
     <link href="css/style.css" rel='stylesheet' type='text/css'/>
 
-	<!-- side nav css file -->
-	<link href='css/SidebarNav.min.css' media='all' rel='stylesheet' type='text/css'/>
-	<!-- //side nav css file -->
+    <!-- side nav css file -->
+    <link href='css/SidebarNav.min.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- //side nav css file -->
 
     <!-- font-awesome icons CSS -->
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -223,7 +222,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 <li><a name="pie2_6" href="#"><i class="fa fa-user"></i> Stammkunde</a></li>
                                 <li><a name="pie2_7" href="#"><i class="fa fa-blind"></i> Alter</a></li>
                                 <li><a name="pie2_8" href="#"><i class="fa fa-map-marker"></i> Wohnort</a></li>
-
+                                <li><a name="andere" href="#"><i class="fa fa-star"></i> Andere</a></li>
                             </ul>
                         </li>
 
@@ -301,7 +300,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="clearfix"></div>
     </div>
-   </div>
     <!-- //header-ends -->
 
     <!-- main content start-->
@@ -346,6 +344,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div id="main12"
                      style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                </div>
+                <div id="main13"
+                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center"><!--添加一个容器来装输入框-->
+                    <div>
+                        Input:<input id='new' type='text' >
+                        <button type="submit" name="submit" class="button" value="submit">submit</button>
+                    </div>
                 </div>
 
                 <!--scrolling js-->
@@ -405,7 +410,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         $("#main10").hide();
                         $("#main11").hide();
                         $("#main12").hide();
-
+                        $("#main13").hide();
                         var Artikel_U = [];
                         var Umsatz = [];
                         var Artikel_D = [];
@@ -571,7 +576,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         var myChart11;
                         var myChart12;
                         //显示简单柱状图
-                        $("[name=submit]").click(function (e) {
+                        $("[name=andere]").click(function (e) {
                             $("#main1").hide();
                             $("#main2").hide();
                             $("#main3").hide();
@@ -584,7 +589,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
+                            $("#main13").show();
                         });
+
                         $("[name=bar1]").click(function (e) {
                             $("#main1").hide();
                             $("#main2").hide();
@@ -598,6 +606,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main1").show();
                             if (myChart1 != null) {
                                 myChart1.dispose();//销毁实例后可以再次在该容器上创建 ECharts实例
@@ -641,6 +650,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main2").show();
                             if (myChart2 != null) {
                                 myChart2.dispose();//销毁实例，否则无法再次显示图表
@@ -681,6 +691,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main3").show();
                             $("#main4").show();
 
@@ -726,6 +737,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main5").show();
                             if (myChart5 != null) {
                                 myChart5.dispose();//销毁实例，否则无法再次显示图表
@@ -758,6 +770,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main6").show();
                             if (myChart6 != null) {
                                 myChart6.dispose();//销毁实例，否则无法再次显示图表
@@ -789,6 +802,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main7").show();
                             if (myChart7 != null) {
                                 myChart7.dispose();//销毁实例，否则无法再次显示图表
@@ -818,6 +832,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main8").show();
                             if (myChart8 != null) {
                                 myChart8.dispose();//销毁实例，否则无法再次显示图表
@@ -848,6 +863,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main9").show();
                             if (myChart9 != null) {
                                 myChart9.dispose();//销毁实例，否则无法再次显示图表
@@ -877,6 +893,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main10").show();
                             if (myChart10 != null) {
                                 myChart10.dispose();//销毁实例，否则无法再次显示图表
@@ -906,6 +923,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main11").show();
                             if (myChart11 != null) {
                                 myChart11.dispose();//销毁实例，否则无法再次显示图表
@@ -935,6 +953,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             $("#main10").hide();
                             $("#main11").hide();
                             $("#main12").hide();
+                            $("#main13").hide();
                             $("#main12").show();
                             if (myChart12 != null) {
                                 myChart12.dispose();//销毁实例，否则无法再次显示图表
@@ -977,19 +996,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </script>
                 <!-- //Classie --><!-- //for toggle left push menu script -->
 
-				<!--scrolling js-->
-				<script src="js/jquery.nicescroll.js"></script>
-				<script src="js/scripts.js"></script>
-				<!--//scrolling js-->
+                <!--scrolling js-->
+                <script src="js/jquery.nicescroll.js"></script>
+                <script src="js/scripts.js"></script>
+                <!--//scrolling js-->
 
-				<!-- side nav js -->
-				<script src='js/SidebarNav.min.js' type='text/javascript'></script>
-				<script>
-					$('.sidebar-menu').SidebarNav()
-				</script>
-				<!-- //side nav js -->
-			</div>
-		</div>
-	</div>
+                <!-- side nav js -->
+                <script src='js/SidebarNav.min.js' type='text/javascript'></script>
+                <script>
+                    $('.sidebar-menu').SidebarNav()
+                </script>
+                <!-- //side nav js -->
+
 </body>
 </html>

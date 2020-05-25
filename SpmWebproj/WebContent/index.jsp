@@ -61,11 +61,11 @@
 
     <div id="hero">
         <div class="container herocontent">
-            <h2 class="wow fadeInUp" data-wow-duration="2s">Professional Data Analysis</h2>
-            <h4 class="wow fadeInDown" data-wow-duration="3s">In Lower Saxony, you cannot find a second company that can provide such professional data processing. Choose Baudas, choose convenient and easy service</h4>
+            <h2 class="wow fadeInUp" data-wow-duration="2s">Professional construction company</h2>
+            <h4 class="wow fadeInDown" data-wow-duration="3s">In Niedersachsen , you cannot find a second construction company that can provide such specialized data processing. Choose Baudas, choose professional products and more professional analysis services.</h4>
+            <img class="heroshot wow bounceInUp" data-wow-duration="4s" src="img/sample-1.png" alt="Featured Work">
         </div>
 
-        <img class="heroshot wow bounceInUp" data-wow-duration="4s" src="img/sample-1.png" alt="Featured Work">
     </div>
     <!--Home AREA END-->
 
@@ -126,7 +126,7 @@ SERVICE SECTION START
     <!-- SERVICE ITEMS START -->
     <div class="row">
         <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="3s">
-           <a  href="login.jsp"> <img src="img/s1.png" alt=""></a>
+            <a  href="login.jsp"> <img src="img/s1.png" alt=""></a>
             <h4> Data Analyse </h4>
             <p>Start your Experience Journey</p>
         </div>
@@ -204,7 +204,7 @@ TESTIMONIAL SECTION START
 <div id="about" class="container">
     <div class="sectionhead wow bounceInUp" data-wow-duration="2s">
         <span class="bigicon icon-bubbles"></span>
-        <h3>This is our Team</h3>
+        <h3>This is our Data Analysis Team</h3>
         <h4></h4>
         <hr class="separetor">
     </div>
@@ -215,7 +215,7 @@ TESTIMONIAL SECTION START
         <!-- 1ST TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
             <div class="clientsphoto">
-                <img src="img/Finn.png" alt="Dan">
+                <img src="img/Finn.png" alt="Finn Wundram">
             </div>
 
             <div class="quote">
@@ -231,7 +231,7 @@ TESTIMONIAL SECTION START
         <!-- 2ND TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
             <div class="clientsphoto">
-                <img src="img/Yixin.png" alt="Bill">
+                <img src="img/Yixin.png" alt="Yixin Peng">
             </div>
 
             <div class="quote">
@@ -247,12 +247,12 @@ TESTIMONIAL SECTION START
         <!-- 3RD TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
             <div class="clientsphoto">
-                <img src="img/Du.png" alt="Eric">
+                <img src="img/Du.png" alt="Du Cheng">
             </div>
 
             <div class="quote">
                 <blockquote>
-                    <p>Being on sea,sail;being on land,settle</p>
+                    <p>Doktor von Rhodes Island</p>
                 </blockquote>
                 <h5>Du Cheng</h5>
                 <p>Tester,China</p>
@@ -263,7 +263,7 @@ TESTIMONIAL SECTION START
         <!-- 4TH TESTIMONIAL ITEM -->
         <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
             <div class="clientsphoto">
-                <img src="img/Ahmed.png" alt="Ramil">
+                <img src="img/Ahmed.png" alt="Ahmed Ahmed">
             </div>
 
             <div class="quote">
@@ -275,6 +275,39 @@ TESTIMONIAL SECTION START
             </div>
         </div>
         <!-- 4TH TESTIMONIAL ITEM END -->
+
+
+        <!-- 5TH TESTIMONIAL ITEM -->
+        <div class="col-md-6 wow bounceIn" data-wow-duration="3s">
+            <div class="clientsphoto">
+                <img src="img/Ke.jpg" alt="Yiyi Ke">
+            </div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>Rockbegeisterte</p>
+                </blockquote>
+                <h5>Yiyi Ke</h5>
+                <p>IT Sicherheit Expert,China</p>
+            </div>
+        </div>
+        <!-- 5TH TESTIMONIAL ITEM END -->
+
+        <!-- 6TH TESTIMONIAL ITEM -->
+        <div class="col-md-6 wow bounceIn" data-wow-duration="2s">
+            <div class="clientsphoto">
+                <img src="img/Liu.jpg" alt="Xinyu Liu">
+            </div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>Place for advertisment...</p>
+                </blockquote>
+                <h5>Xinyu Liu</h5>
+                <p>Data Science Expert,China</p>
+            </div>
+        </div>
+        <!-- 6TH TESTIMONIAL ITEM END -->
     </div>
 </div>
 <!-- TESTIMONIAL SECTION END -->

@@ -291,7 +291,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 						<script type="text/javascript">
 							function check() {
-								location.href = "/SpmWebproj/validation2_1";
+								location.href = "/SpmWebproj_war_exploded/validation2_1";
 							}
 						</script>
 						<%
