@@ -46,7 +46,7 @@
 >* index *(Baudas Firmenhomepage, einschließlich unserer Teameinführung und unseres Firmenprofils)
 >* login *(Einfache Login-Oberfläche, Passwort und Benutzername sind admin)
 >* startseite *(in zwei Teile unterteilt: 1. Wählen Sie nach dem Anmelden den lokalen Datei-Upload aus (* .csv). 2. Geben Sie dann die Schaltfläche ein, um die Datenanalyse-Oberfläche aufzurufen.)
->* Anzeige *(mit E-Charts js werden die Analyseergebnisse mit Hilfe von Diagrammen angezeigt)
+>* display *(mit E-Charts js werden die Analyseergebnisse mit Hilfe von Diagrammen angezeigt)
 
 
 ----------
