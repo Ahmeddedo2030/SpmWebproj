@@ -11,7 +11,7 @@
 ----------
 
 
-### 简单的Servlet + jsp + Weka(Finn 使用了JSF)
+### 简单的Servlet + jsp + Weka
 *Weka 的功能只使用了Instance，将数据按属性或者行读取出来，存入ArrayList.自己写了排序*
 *******
 
@@ -52,7 +52,7 @@
 ----------
 
 
-### Einfaches Servlet + jsp + Weka (Finn benutzt JSF)
+### Einfaches Servlet + jsp + Weka
 *Wekas(Funktion) verwendet nur Instanz, liest die Daten nach Attributen oder Zeilen und speichert sie in ArrayList. Wir schreiben die Funktion(sortieren) selbst.*
 *******
 
