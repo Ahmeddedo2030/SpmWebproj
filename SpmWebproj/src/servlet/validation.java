@@ -49,7 +49,8 @@ public class validation extends HttpServlet {
 			log.info("Erfolgreicher LogIn");
 			request.setAttribute("message","Erfolgreich angemeldet");
 			request.setAttribute("signal",0);
-			request.getRequestDispatcher("startseite.jsp").forward(request, response);
+			//request.getRequestDispatcher("Ergebnisse").forward(request, response);
+			response.sendRedirect("Ergebnisse");
 			
 		} else {
 			log.info("LogIn nicht erfolgreich");

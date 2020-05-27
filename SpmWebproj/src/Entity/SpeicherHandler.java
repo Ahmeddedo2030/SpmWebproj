@@ -212,7 +212,7 @@ public class SpeicherHandler {
 			
 			for(int i = 0; i < s.length; i++) {
 				String []teil = s[i].split(prefSeparator,2);
-				if(teil[0].equals(prefUmsArt)) {	//Unterergebnisse nach entsprechender Markierung durchsuchen
+				if(teil[0].equals(prefUmsTag)) {	//Unterergebnisse nach entsprechender Markierung durchsuchen
 					String []m1 = teil[1].split(";");
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");

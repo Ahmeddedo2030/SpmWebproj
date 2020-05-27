@@ -180,8 +180,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
 							<li class="header">MAIN NAVIGATION</li>
-							<li class="treeview"><a href="startseite.jsp"> <i
-									class="fa fa-dashboard"></i> <span>Home</span>
+							<li class="treeview"><a href="Ergebnisse"> <i
+									class="fa fa-file"></i> <span>Vorige Ergebnisse</span>
 							</a></li>
 
 							<li class="treeview"><a href="login.jsp"> <i
@@ -272,7 +272,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						if (signal == 0) {
 						%>
 						<center>
-						<form action="validation2_1" enctype='multipart/form-data'
+						<form action="Ergebnisse" enctype='multipart/form-data'
 							method="post">
 							<input style="" type="file" name="datei" /><br>
 							<button style="margin-top: 30px;" type="submit" name="submit"
@@ -291,7 +291,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 						<script type="text/javascript">
 							function check() {
-								location.href = "/SpmWebproj_war_exploded/validation2_1";
+								location.href = "Ergebnisse";
 							}
 						</script>
 						<%

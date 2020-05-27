@@ -309,7 +309,7 @@ public class AnalysisTool {
 		return artikelUmsatz;
 	}
 	
-	public ArrayList<HashMap<String, Integer>> kundenBasicInfo(String path) throws Exception {
+	public ArrayList<HashMap<String, Integer>> kundenBasicInfo() throws Exception {
 
 		// machen die instence kuerzer
 		Instances nurSex = new Instances(alleDaten);

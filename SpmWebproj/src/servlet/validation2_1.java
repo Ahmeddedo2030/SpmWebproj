@@ -23,11 +23,12 @@ import Entity.SpeicherHandler;
 import main.AnalysisTool;
 import main.PathResultFolder;
 import Entity.Kunden_Basic_Info;
+import Entity.Speicher;
 
 /**
  * Servlet implementation class validation2_1
  */
-@WebServlet("/validation2_1")
+@WebServlet("/Ergebnisse")
 public class validation2_1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log	= Logger.getLogger(validation2_1.class.getName());
@@ -48,68 +49,82 @@ public class validation2_1 extends HttpServlet {
 	}
 
 	/**
+	 * Lädt das im Parameter "change" angegebene Ergebnis. Falls eine neuer Upload bemerkt wird, wird dieser in den Speicher geschrieben.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {//turn to result of data analyse
-		// TODO Auto-generated method stub
+		Speicher.readFile();
 		String changeParam = request.getParameter("change");
+		
+		SpeicherHandler ff = new SpeicherHandler();
+		
+		
+		Kunden_Basic_Info = new ArrayList<>();
+		if(pathList.size()>0) {
+			log.info("Neue Datei gefunden. Starte Analyse.");
+			
+			long startTime = System.nanoTime();
+			AnalysisTool analysis = new AnalysisTool(pathList.get(pathList.size()-1));
+			pathList.remove(pathList.size()-1);
+			bestU = analysis.umsatzProArtikel();
+			bestD = analysis.deckungProArtikel();
+			bestZ = analysis.umsatzProZeit();
+			bestT = analysis.umsatzProTag();
+			try {
+				Kunden_Basic_Info = new ArrayList<>(analysis.kundenBasicInfo());
+			} catch (Exception e) {
+				log.info("Kundendaten konnten nicht geladen werden");
+				e.printStackTrace();
+			}
+			long endTime = System.nanoTime();
+			
+			log.info("Analyse in " + (endTime-startTime)/1000000 + " ms");
+			ff.put(bestU, bestD ,bestZ, bestT);
+		}
+		
+		
 		int change;
+		int speicherZahl = Speicher.getNewestIndex();
 		if(changeParam != null) {
 			change = Integer.parseInt(changeParam) - 1;
-		}else {
-			log.info("Ungültiger Parameter. Lade neustes Ergebnis");
-			change = 5;
-		}
-		
-		
-		if(pathList.size()>0) {
-			try {
-							
-				Kunden_Basic_Info =new ArrayList<>(new Kunden_Basic_Info(). Basic_Info(pathList.get(pathList.size()-1)));
-				//把前面的这三个分析数据存到文件中
-				SpeicherHandler ff= new SpeicherHandler();
-				
-				//找出用户想要看的第change行数据
-				
-				if(change < 5 && change >= 0) {
-					log.info("Lade Ergebnis aus Speicher");
-					bestU = ff.get_all_umsatz(change);
-					bestD = ff.get_AB(change);
-					bestZ = ff.get_Z(change);
-					bestT = ff.get_T(change);				
-				} else {//表示有新文件加载，这个时候将数据保存
-					log.info("Stelle neues Ergebnis dar");
-					AnalysisTool analysis = new AnalysisTool(pathList.get(pathList.size()-1));
-					bestU = analysis.umsatzProArtikel();
-					bestD = analysis.deckungProArtikel();
-					bestZ = analysis.umsatzProZeit();
-					bestT = analysis.umsatzProTag();
-					ff.put(bestU, bestD ,bestZ, bestT);
-				}
-				request.setAttribute("TF_Artikel_Umsatz", bestU );
-				request.setAttribute("TF_Artikel_DBeitrag",bestD);
-				request.setAttribute("Best_Z",bestZ);
-				request.setAttribute("Best_T", bestT);
-				request.setAttribute("Sex", Kunden_Basic_Info.get(0));
-				request.setAttribute("Kinder", Kunden_Basic_Info.get(1));
-				request.setAttribute("Beruf", Kunden_Basic_Info.get(2));
-				request.setAttribute("Family", Kunden_Basic_Info.get(3));
-				request.setAttribute("Haus", Kunden_Basic_Info.get(4));
-				request.setAttribute("Stammkunde", Kunden_Basic_Info.get(5));
-				request.setAttribute("Age", Kunden_Basic_Info.get(6));
-				request.setAttribute("Wohnort", Kunden_Basic_Info.get(7));
-				//request.setAttribute("signal", change);
-				request.getRequestDispatcher("Display.jsp").forward(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				new Exception("data read fail"); 
+			if (change < 0 || change > 4) {
+				log.info("Ungültiger Parameter. Lade neustes Ergebnis");
+				change = speicherZahl;
+			} else if (change > speicherZahl){
+				log.info("Ergebnis existiert nicht. Bitte Datei hochladen.");
+				response.sendRedirect("startseite.jsp");
+				return;
 			}
 		}else {
-			response.sendRedirect("startseite.jsp");
+			log.info("Lade neustes Ergebnis");
+			change = speicherZahl;
 		}
+			
+		bestU = ff.get_all_umsatz(change);
+		bestD = ff.get_AB(change);
+		bestZ = ff.get_Z(change);
+		bestT = ff.get_T(change);
+		
+		
+		request.setAttribute("TF_Artikel_Umsatz", bestU );
+		request.setAttribute("TF_Artikel_DBeitrag",bestD);
+		request.setAttribute("Best_Z",bestZ);
+		request.setAttribute("Best_T", bestT);
+		
+		if(Kunden_Basic_Info.size() > 0) {
+			request.setAttribute("Sex", Kunden_Basic_Info.get(0));
+			request.setAttribute("Kinder", Kunden_Basic_Info.get(1));
+			request.setAttribute("Beruf", Kunden_Basic_Info.get(2));
+			request.setAttribute("Family", Kunden_Basic_Info.get(3));
+			request.setAttribute("Haus", Kunden_Basic_Info.get(4));
+			request.setAttribute("Stammkunde", Kunden_Basic_Info.get(5));
+			request.setAttribute("Age", Kunden_Basic_Info.get(6));
+			request.setAttribute("Wohnort", Kunden_Basic_Info.get(7));
+		}
+		//request.setAttribute("signal", change);
+		request.getRequestDispatcher("Display.jsp").forward(request, response);
 	}
 
 	/**
@@ -139,12 +154,20 @@ public class validation2_1 extends HttpServlet {
 						System.out.println(fieldName + ":" + fieldValue);
 
 					} else {
-						if (extension[1].equals("csv")) {// 文件字段
+						if(extension.length < 2) {
+							log.info("Keine Datei gewählt");
+							request.setAttribute("file", "Bitte eine gültige CSV Datei hochladen");
+							request.setAttribute("signal", 0);
+							request.getRequestDispatcher("startseite.jsp").forward(request, response);
+
+							return;
+						}
+						else if (extension[1].equals("csv")) {// 文件字段
 							processFile(file);
 						    break;}
 						else {
 							log.info("Ungültige Datei");
-							request.setAttribute("file", "You can only upload CSV Files");
+							request.setAttribute("file", "Bitte eine gültige CSV Datei hochladen");
 							request.setAttribute("signal", 0);
 							request.getRequestDispatcher("startseite.jsp").forward(request, response);
 

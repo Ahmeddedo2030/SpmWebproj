@@ -129,6 +129,10 @@ public class Speicher {
 		}
 		return result;
 	}
+
+	public static int getNewestIndex() {
+		return analysisResults.size()-1;
+	}
 	
 	/*public static void main(String[]args) throws IOException {
 		speichern s = new speichern();

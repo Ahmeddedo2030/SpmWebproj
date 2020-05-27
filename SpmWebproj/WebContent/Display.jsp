@@ -191,18 +191,18 @@
                 <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
-                        <li class="treeview"><a href="startseite.jsp"> <i
-                                class="fa fa-dashboard"></i> <span>Home</span>
+                        <li class="treeview"><a href="startseite.jsp"> <i 
+                        		class="fa fa-upload"></i> <span>Neue Datei hochladen</span>
                         </a></li>
 
                         <li class="treeview"><a name="bar1" href="#"> <i
-                                class="fa fa-shopping-cart"></i> <span>ArtikelNachUmsatz</span>
+                                class="fa fa-shopping-cart"></i> <span>Artikel Nach Umsatz</span>
                         </a></li>
                         <li class="treeview"><a name="bar2" href="#"> <i
-                                class="fa fa-bar-chart-o"></i> <span>ArtikelNachDBeitrag</span>
+                                class="fa fa-bar-chart-o"></i> <span>Artikel Nach Deckungsspanne</span>
                         </a></li>
                         <li class="treeview"><a name="pie1" href="#"> <i
-                                class="fa fa-calendar"></i> <span>BestZeitundTag</span>
+                                class="fa fa-calendar"></i> <span>Tag und Zeit Nach Umsatz</span>
                         </a></li>
 
 
@@ -210,7 +210,7 @@
 
 
                         <li class="treeview"><a href="#">
-                            <i class="fa fa-info"></i> <span>KundenGrundInfo</span>
+                            <i class="fa fa-info"></i> <span>Kundengruppen</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                             <ul class="treeview-menu">
@@ -231,11 +231,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                             <ul class="treeview-menu">
-                                <li><a href="validation2_1?change=1"><i class="fa fa-angle-right"></i> 1. Record</a></li>
-                                <li><a href="validation2_1?change=2"><i class="fa fa-angle-right"></i> 2. Record</a></li>
-                                <li><a href="validation2_1?change=3"><i class="fa fa-angle-right"></i> 3. Record</a></li>
-                                <li><a href="validation2_1?change=4"><i class="fa fa-angle-right"></i> 4. Record</a></li>
-                                <li><a href="validation2_1?change=5"><i class="fa fa-angle-right"></i> 5. Record</a></li>
+                                <li><a href="Ergebnisse?change=1"><i class="fa fa-angle-right"></i> 1. Record</a></li>
+                                <li><a href="Ergebnisse?change=2"><i class="fa fa-angle-right"></i> 2. Record</a></li>
+                                <li><a href="Ergebnisse?change=3"><i class="fa fa-angle-right"></i> 3. Record</a></li>
+                                <li><a href="Ergebnisse?change=4"><i class="fa fa-angle-right"></i> 4. Record</a></li>
+                                <li><a href="Ergebnisse?change=5"><i class="fa fa-angle-right"></i> 5. Record</a></li>
                             </ul>
                         </li>
 
