@@ -56,11 +56,17 @@
     <script src="js/custom.js"></script>
     <link href="css/custom.css" rel="stylesheet">
     <!--//Metis Menu -->
+    
     <style>
         #chartdiv {
             width: 100%;
             height: 295px;
         }
+        
+        .commentEntry{
+			list-style:none;
+			background-color:#c0c5c7;
+		}
     </style>
     <!--pie-chart --><!-- index page sales reviews visitors pie chart -->
     <script src="js/pie-chart.js" type="text/javascript"></script>
@@ -376,17 +382,22 @@
                         
                         <button id="addComment" class="fa fa-plus" onclick="addCommentToList()"> Hinzufügen</button>
                         	<script>
+                        		function appendToCommentList(textToAdd){
+                        			commentList.push(textToAdd);
+                        			var tNode = document.createTextNode(textToAdd);
+                        			var listNode = document.createElement("LI");
+                        			listNode.classList.add("commentEntry");
+                        			listNode.appendChild(tNode);
+                        			$("#commentList").prepend(listNode);
+                        		}
+                        		
                         		function addCommentToList() {
                         			var inputBox = document.getElementById("newCommentInput");
                         			var newestComment = inputBox.value;
                         			if(newestComment && newestComment.length !== 0){
 	                        			inputBox.value = "";
 	                        			
-	                        			commentList.push(newestComment);
-	                        			var tNode = document.createTextNode(newestComment);
-	                        			var listNode = document.createElement("LI");
-	                        			listNode.appendChild(tNode);
-	                        			$("#commentList").prepend(listNode);
+	                        			appendToCommentList(newestComment);
                         			}
                         		}
                         	</script>
@@ -408,6 +419,7 @@
                         		}
                         	</script>
                         <ul id="commentList">
+                        	
                         </ul>
                     
                 </div>
@@ -596,10 +608,7 @@
                         <c:forEach items="${OldComments}" var="comment">
                         commentList.push("${comment}");
                         
-                        var tNode = document.createTextNode("${comment}");
-            			var listNode = document.createElement("LI");
-            			listNode.appendChild(tNode);
-            			$("#commentList").prepend(listNode);
+                        appendToCommentList("${comment}");
             			
                         </c:forEach>
 
