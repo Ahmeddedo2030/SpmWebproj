@@ -333,39 +333,39 @@
                 <div id="main2" style="position: relative; top: 60px; width: 1600px;height:750px;  text-align: center">
                 </div>
                 <div id="main3"
-                     style="position: absolute; transform:translate(10%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(10%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main4"
-                     style="position: absolute; transform:translate(130%, -90.5%);  width: 40%;height:600px;   text-align: center">
+                     style="position: relative; transform:translate(130%, -90.5%);  width: 40%;height:600px;   text-align: center">
                 </div>
 
                 <div id="main5"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;   text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;   text-align: center">
                 </div>
                 <div id="main6"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width:40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width:40%;height:600px;  text-align: center">
                 </div>
                 <div id="main7"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main8"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
 
                 <div id="main9"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px; text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px; text-align: center">
                 </div>
                 <div id="main10"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main11"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main12"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main13"
-                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center"><!--添加一个容器来装输入框-->
+                     style="position: relative; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center"><!--添加一个容器来装输入框-->
                     
                     	<form action="commentHandler" method="POST" id="commentSubmitForm">
                         	<input type="hidden" id = "commentListVar" name="commentList">
