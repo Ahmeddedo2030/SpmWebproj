@@ -123,11 +123,26 @@ public class Speicher {
 			readFile();
 		}
 		//log.info("Suche Ergebnis");
-		if(index < analysisResults.size()) {
+		if(index >= 0 && index < analysisResults.size()) {
 			result = analysisResults.get(index);
 			//log.info("Erfolgreich");
 		}
 		return result;
+	}
+	
+	public static boolean replaceResult(int index, String newVersion) {
+		if(index >= 0 && index < analysisResults.size()) {
+			analysisResults.set(index, newVersion);
+			log.info("Ergebniss an Index " + index + " ersetzt");
+			try {
+				saveToFile();
+			} catch (IOException e) {
+				log.info("Konnte Änderung nicht speichern.");
+				e.printStackTrace();
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public static int getNewestIndex() {

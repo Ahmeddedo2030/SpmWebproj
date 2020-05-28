@@ -21,6 +21,7 @@ public class SpeicherHandler {
 	private static final String prefDeckArt = "DpA";
 	private static final String prefUmsZeit = "UpZ";
 	private static final String prefUmsTag = "UpT";
+	private static final String prefComment = "Kom";
 	
 	private static final String prefSeparator = "-";
 	
@@ -84,6 +85,13 @@ public class SpeicherHandler {
 		return ergebnis;
 	}
 	
+	public static String reserveComment() {
+		String ergebnis = prefComment + prefSeparator;
+		ergebnis+="/";
+		log.info("Kommentarfeld reserviert");
+		return ergebnis;
+	}
+	
 	/**
 	 * Verwaltet die String-konvertierung und das darauf folgende Speichern der uebergebenen Analyseergebnisse.
 	 * @param umsatzProArtikel Eine Map, die als Key-Value-Paare "Warengruppe-Umsatz" hat
@@ -100,7 +108,7 @@ public class SpeicherHandler {
 						,LinkedHashMap<String,Integer> umsatzProTag) throws IOException {
 		
 		String ergebnis="";
-		ergebnis=put_AU(umsatzProArtikel)+put_AD(deckungProArtikel)+put_Z(umsatzProZeit)+put_T(umsatzProTag);
+		ergebnis=put_AU(umsatzProArtikel)+put_AD(deckungProArtikel)+put_Z(umsatzProZeit)+put_T(umsatzProTag)+reserveComment();
 		
 		Speicher.readFile();
 		Speicher.writeFile(ergebnis);

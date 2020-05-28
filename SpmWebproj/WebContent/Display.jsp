@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Daudas Professional Construction Company"/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
+    <script type="application/x-javascript"> 
+    addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
 
@@ -64,7 +65,22 @@
     <!--pie-chart --><!-- index page sales reviews visitors pie chart -->
     <script src="js/pie-chart.js" type="text/javascript"></script>
     <script type="text/javascript">
+    	var commentList = [];	//globale liste aufgrund funktionesweise
+    	var getUrlParameter = function getUrlParameter(sParam) {
+    	    var sPageURL = window.location.search.substring(1),
+    	        sURLVariables = sPageURL.split('&'),
+    	        sParameterName,
+    	        i;
 
+    	    for (i = 0; i < sURLVariables.length; i++) {
+    	        sParameterName = sURLVariables[i].split('=');
+
+    	        if (sParameterName[0] === sParam) {
+    	            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+    	        }
+    	    }
+    	};
+    	
         $(document).ready(function () {
             $('#demo-pie-1').pieChart({
                 barColor: '#2dde98',
@@ -222,9 +238,12 @@
                                 <li><a name="pie2_6" href="#"><i class="fa fa-user"></i> Stammkunde</a></li>
                                 <li><a name="pie2_7" href="#"><i class="fa fa-blind"></i> Alter</a></li>
                                 <li><a name="pie2_8" href="#"><i class="fa fa-map-marker"></i> Wohnort</a></li>
-                                <li><a name="andere" href="#"><i class="fa fa-star"></i> Andere</a></li>
                             </ul>
                         </li>
+                        
+                        <li class="treeview"><a name="andere" href="#"><i
+                        		 class="fa fa-pencil"></i> <span>Bemerkungen & Maßnahmen</span>
+                        </a></li>
 
                         <li class="treeview"><a href="#">
                             <i class="fa fa-bars "></i> <span>History</span>
@@ -314,43 +333,83 @@
                 <div id="main2" style="position: relative; top: 60px; width: 1600px;height:750px;  text-align: center">
                 </div>
                 <div id="main3"
-                     style="position: absoulte; transform:translate(10%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(10%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main4"
-                     style="position: absoulte; transform:translate(130%, -90.5%);  width: 40%;height:600px;   text-align: center">
+                     style="position: absolute; transform:translate(130%, -90.5%);  width: 40%;height:600px;   text-align: center">
                 </div>
 
                 <div id="main5"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;   text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;   text-align: center">
                 </div>
                 <div id="main6"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width:40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width:40%;height:600px;  text-align: center">
                 </div>
                 <div id="main7"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main8"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
 
                 <div id="main9"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px; text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px; text-align: center">
                 </div>
                 <div id="main10"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main11"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main12"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center">
                 </div>
                 <div id="main13"
-                     style="position: absoulte; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center"><!--添加一个容器来装输入框-->
-                    <div>
-                        Input:<input id='new' type='text' >
-                        <button type="submit" name="submit" class="button" value="submit">submit</button>
-                    </div>
+                     style="position: absolute; transform:translate(80%, 0%); top: 60px; width: 40%;height:600px;  text-align: center"><!--添加一个容器来装输入框-->
+                    
+                    	<form action="commentHandler" method="POST" id="commentSubmitForm">
+                        	<input type="hidden" id = "commentListVar" name="commentList">
+                        	<input type="hidden" id = "currentResultID" name="resultID">
+                        </form>
+                        
+                        <input id='newCommentInput' type='text' >
+                        
+                        <button id="addComment" class="fa fa-plus" onclick="addCommentToList()"> Hinzufügen</button>
+                        	<script>
+                        		function addCommentToList() {
+                        			var inputBox = document.getElementById("newCommentInput");
+                        			var newestComment = inputBox.value;
+                        			if(newestComment && newestComment.length !== 0){
+	                        			inputBox.value = "";
+	                        			
+	                        			commentList.push(newestComment);
+	                        			var tNode = document.createTextNode(newestComment);
+	                        			var listNode = document.createElement("LI");
+	                        			listNode.appendChild(tNode);
+	                        			$("#commentList").prepend(listNode);
+                        			}
+                        		}
+                        	</script>
+                        <button id="saveComment" class="fa fa-save" onclick="submitCommentList()"> Speichern</button>
+                        	<script>
+                        		function submitCommentList(){
+                        			var allCommentsLongString = commentList.join(';com;');
+                        			
+                        			var listVar = document.getElementById("commentListVar");
+                        			listVar.value = allCommentsLongString;
+                        			
+                        			var currentID = document.getElementById("currentResultID");
+                        			currentID.value = getUrlParameter("change");
+                        			
+                        			//console.log(currentID.value);	
+                        				
+                        			var comSub = document.getElementById("commentSubmitForm");
+                        			comSub.submit();
+                        		}
+                        	</script>
+                        <ul id="commentList">
+                        </ul>
+                    
                 </div>
 
                 <!--scrolling js-->
@@ -436,6 +495,8 @@
                         var A_num = [];
                         var Wohnort = [];
                         var W_num = [];
+                        
+                        //commentList ist global aufgrund funktionsweise
 
 
                         //初始化数据
@@ -530,6 +591,16 @@
                             name: "${l.key}",
                             value: "${l.value}"
                         });
+                        </c:forEach>
+                        
+                        <c:forEach items="${OldComments}" var="comment">
+                        commentList.push("${comment}");
+                        
+                        var tNode = document.createTextNode("${comment}");
+            			var listNode = document.createElement("LI");
+            			listNode.appendChild(tNode);
+            			$("#commentList").prepend(listNode);
+            			
                         </c:forEach>
 
                         /*一开始的时候就展示给顾客一个图*/
@@ -1007,6 +1078,9 @@
                     $('.sidebar-menu').SidebarNav()
                 </script>
                 <!-- //side nav js -->
-
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

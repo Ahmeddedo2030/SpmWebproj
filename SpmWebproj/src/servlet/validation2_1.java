@@ -22,6 +22,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import Entity.SpeicherHandler;
 import main.AnalysisTool;
 import main.PathResultFolder;
+import Entity.CommentHandler;
 import Entity.Kunden_Basic_Info;
 import Entity.Speicher;
 
@@ -40,6 +41,7 @@ public class validation2_1 extends HttpServlet {
     LinkedHashMap<String, Integer> bestZ = null;
     LinkedHashMap<String, Integer> bestT = null;
     ArrayList<HashMap<String,Integer>> Kunden_Basic_Info = null;
+	ArrayList<String> comments = null;
     
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -106,12 +108,14 @@ public class validation2_1 extends HttpServlet {
 		bestD = ff.get_AB(change);
 		bestZ = ff.get_Z(change);
 		bestT = ff.get_T(change);
+		comments = CommentHandler.getComments(change);
 		
 		
 		request.setAttribute("TF_Artikel_Umsatz", bestU );
 		request.setAttribute("TF_Artikel_DBeitrag",bestD);
 		request.setAttribute("Best_Z",bestZ);
 		request.setAttribute("Best_T", bestT);
+		request.setAttribute("OldComments", comments);
 		
 		if(Kunden_Basic_Info.size() > 0) {
 			request.setAttribute("Sex", Kunden_Basic_Info.get(0));
