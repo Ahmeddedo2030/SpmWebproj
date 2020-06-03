@@ -43,12 +43,12 @@ public class SpeicherHandler {
 	
 	/**
 	 * 
-	 * @param deckungProArtikel Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat
+	 * @param bestD Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat
 	 * @return Ein String, der den Inhalt der Map representiert. KV-Paare sind durch ";" getrennt, und Key von Value durch ":"
 	 */
-	public static String put_AD(LinkedHashMap<String,Integer> deckungProArtikel){
+	public static String put_AD(LinkedHashMap<String, Integer> bestD){
 		String ergebnis = prefDeckArt + prefSeparator;
-		for(Entry<String, Integer> entry : deckungProArtikel.entrySet()) {
+		for(Entry<String, Integer> entry : bestD.entrySet()) {
 			ergebnis+=entry.getKey()+":"+entry.getValue()+";";
 		}		
 		ergebnis+="/";
@@ -95,7 +95,7 @@ public class SpeicherHandler {
 	/**
 	 * Verwaltet die String-konvertierung und das darauf folgende Speichern der uebergebenen Analyseergebnisse.
 	 * @param umsatzProArtikel Eine Map, die als Key-Value-Paare "Warengruppe-Umsatz" hat
-	 * @param deckungProArtikel Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat
+	 * @param bestD Eine Map, die als Key-Value-Paare "Warengruppe-Deckungsspanne" hat
 	 * @param umsatzProZeit Eine Map, die als Key-Value-Paare "Uhrzeit-Umsatz" hat
 	 * @param umsatzProTag Eine Map, die als Key-Value-Paare "Wochentag-Umsatz" hat
 	 * @see Speicher#readFile()
@@ -103,12 +103,12 @@ public class SpeicherHandler {
 	 * @throws IOException
 	 */
 	public void put(LinkedHashMap<String,Integer> umsatzProArtikel 
-						,LinkedHashMap<String, Integer> deckungProArtikel 
+						,LinkedHashMap<String, Integer> bestD 
 						,LinkedHashMap<String,Integer> umsatzProZeit 
 						,LinkedHashMap<String,Integer> umsatzProTag) throws IOException {
 		
 		String ergebnis="";
-		ergebnis=put_AU(umsatzProArtikel)+put_AD(deckungProArtikel)+put_Z(umsatzProZeit)+put_T(umsatzProTag)+reserveComment();
+		ergebnis=put_AU(umsatzProArtikel)+put_AD(bestD)+put_Z(umsatzProZeit)+put_T(umsatzProTag)+reserveComment();
 		
 		Speicher.readFile();
 		Speicher.writeFile(ergebnis);
@@ -225,8 +225,9 @@ public class SpeicherHandler {
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");
 						
-						if(isInt(mm[1]));
+						if(isInt(mm[1])) {
 						teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						}
 					}
 					log.info("Erfolgreich");
 					return teilErgebnis;

@@ -296,13 +296,17 @@ public class AnalysisTool {
 	 */
 	public LinkedHashMap<String, Integer> deckungProArtikel() {
 		Map<String, Integer> deckungsSpanne = readDeckungsspanne();			//Map<Warengruppe, Deckungsspanne> einlesen
-		LinkedHashMap<String, Integer> artikelUmsatz = umsatzProArtikel();	//Map<Warengruppe, Einkaufssumme>
-																			//benutze Methode, um Warengruppen gleich sortiert zu haben
+		LinkedHashMap<String, Integer> artikelUmsatz = umsatzProArtikel();		//benutze Methode, um Warengruppen gleich sortiert zu haben
 		
 		Iterator<Map.Entry<String, Integer>> iter = artikelUmsatz.entrySet().iterator();
 		while (iter.hasNext()) {												//Für jeden Eintrag in der Liste
 			Map.Entry<String, Integer> tmp = iter.next();
-			int multiplied = tmp.getValue() * deckungsSpanne.get(tmp.getKey());	//Einkaufssumme mit Deckungsbetrag multiplizieren
+			int multiplied = 0;
+			try {
+				multiplied = (int)(tmp.getValue() * ((float)deckungsSpanne.get(tmp.getKey()) / (float)(deckungsSpanne.get(tmp.getKey()) + 100)));	//Einkaufssumme mit Deckungsbetrag multiplizieren
+			} catch(NullPointerException e) {
+				log.info("Konnte Warengruppe " + tmp.getKey() + " nicht in Deckungsspanne finden");
+			}
 			tmp.setValue(multiplied);
 		}
 		

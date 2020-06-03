@@ -23,7 +23,6 @@ import Entity.SpeicherHandler;
 import main.AnalysisTool;
 import main.PathResultFolder;
 import Entity.CommentHandler;
-import Entity.Kunden_Basic_Info;
 import Entity.Speicher;
 
 /**
