@@ -104,7 +104,11 @@ public class AnalysisTool {
 	 */
 	public LinkedHashMap<String, Integer> umsatzProTag() {
 		// Instanz verkuerzen
-		Instances nurTagundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufstag"), alleDaten.attribute("Einkaufssumme"));
+		Instances nurTagundUmsatz = reduceToAttributes(alleDaten, "Einkaufstag", "Einkaufssumme");
+		if(nurTagundUmsatz == null) {
+			log.info("Konnte Instanz nicht filtern. Analyseteil abgebrochen.");
+			return null;
+		}
 		
 		nurTagundUmsatz.sort(0);
 		
@@ -179,8 +183,12 @@ public class AnalysisTool {
 	 */
 	public LinkedHashMap<String, Integer> umsatzProZeit() {
 		//Instanz verkuerzen
-		Instances nurZeitundUmsatz = reduceToAttributes(alleDaten, alleDaten.attribute("Einkaufsuhrzeit"), alleDaten.attribute("Einkaufssumme"));
-				
+		Instances nurZeitundUmsatz = reduceToAttributes(alleDaten, "Einkaufsuhrzeit", "Einkaufssumme");
+		if(nurZeitundUmsatz == null) {
+			log.info("Konnte Instanz nicht filtern. Analyseteil abgebrochen.");
+			return null;
+		}
+		
 		nurZeitundUmsatz.sort(0);
 		Map<String, Integer> uhrumstaz = new HashMap<String, Integer>();
 		int sum = 0;
@@ -256,7 +264,13 @@ public class AnalysisTool {
         int endPoint = alleDaten.numAttributes();	
         
         //Alle Warengruppen stehen hinter dem Attribut "Einkaufssumme", entsprechend ab dessen Index arbeiten
-        int startPoint = alleDaten.attribute("Einkaufssumme").index() + 1;
+        int startPoint;
+        try {
+        	startPoint = alleDaten.attribute("Einkaufssumme").index() + 1;
+        } catch (NullPointerException e) {
+			log.info("Konnte Instanz nicht filtern. Analyseteil abgebrochen.");
+			return null;
+        }
         
         for(int j = startPoint; j < endPoint; j++) {		//für jedes Attribut das eine Warengruppe ist
             int tmp = 0;
@@ -611,7 +625,7 @@ public class AnalysisTool {
     }
 	
 	
-	private Instances reduceToAttributes(Instances input, Attribute... attributes) {
+	private Instances reduceToAttributes(Instances input, String... attributes) {
 		Instances result = new Instances(input);
 		Remove removalFilter = new Remove();
 		removalFilter.setInvertSelection(true);	//Instead of all selected Attributes being removed, all Attributes that are NOT selected are removed.
@@ -619,8 +633,14 @@ public class AnalysisTool {
 		String targetNames="";
 		int[] targetAttributes = new int[attributes.length]; 
 		for(int i = 0; i < attributes.length; i++) {
-			targetAttributes[i] = attributes[i].index();
-			targetNames += " " + attributes[i].name();
+			try {
+			Attribute tmp = input.attribute(attributes[i]);
+			targetAttributes[i] = tmp.index();
+			targetNames += " " + attributes[i];
+			} catch (NullPointerException e) {
+				log.info("Fehler. Attribut " + attributes[i] + " konnte nicht gefunden werden. Filterprozess wurde abrgebrochen");
+				return null;
+			}
 		}
 		removalFilter.setAttributeIndicesArray(targetAttributes);
 		
