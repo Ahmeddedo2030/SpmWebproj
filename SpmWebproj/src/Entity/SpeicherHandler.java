@@ -33,9 +33,13 @@ public class SpeicherHandler {
 	 */
 	public static String put_AU(LinkedHashMap<String,Integer>  umsatzProArtikel){
 		String ergebnis= prefUmsArt + prefSeparator;
-		for(Map.Entry<String,Integer> entry : umsatzProArtikel.entrySet()) {
-			ergebnis+=entry.getKey()+":"+entry.getValue()+";";
-		}	
+		if(umsatzProArtikel != null) {
+			for(Map.Entry<String,Integer> entry : umsatzProArtikel.entrySet()) {
+				ergebnis+=entry.getKey()+":"+entry.getValue()+";";
+			}	
+		} else {
+			log.info("Kein Inhalt zu Speichern.");
+		}
 		ergebnis += "/";
 		log.info("Map zu String: Umsatz pro Artikel");
 		return ergebnis;
@@ -48,9 +52,13 @@ public class SpeicherHandler {
 	 */
 	public static String put_AD(LinkedHashMap<String, Integer> bestD){
 		String ergebnis = prefDeckArt + prefSeparator;
-		for(Entry<String, Integer> entry : bestD.entrySet()) {
-			ergebnis+=entry.getKey()+":"+entry.getValue()+";";
-		}		
+		if(bestD != null) {
+			for(Entry<String, Integer> entry : bestD.entrySet()) {
+				ergebnis+=entry.getKey()+":"+entry.getValue()+";";
+			}		
+		}else {
+			log.info("Kein Inhalt zu Speichern.");
+		}
 		ergebnis+="/";
 		log.info("Map zu String: Deckungsspanne pro Artikel");
 		return ergebnis;
@@ -63,9 +71,13 @@ public class SpeicherHandler {
 	 */
 	public static String put_Z(LinkedHashMap<String,Integer> umsatzProZeit){
 		String ergebnis = prefUmsZeit + prefSeparator;
-		for(Entry<String, Integer> entry : umsatzProZeit.entrySet()) {
-			ergebnis+=entry.getKey()+":"+entry.getValue()+";";
-		}	
+		if(umsatzProZeit != null) {
+			for(Entry<String, Integer> entry : umsatzProZeit.entrySet()) {
+				ergebnis+=entry.getKey()+":"+entry.getValue()+";";
+			}
+		}else {
+			log.info("Kein Inhalt zu Speichern.");
+		}
 		ergebnis+="/";
 		log.info("Map zu String: Umsatz pro Uhrzeit");
 		return ergebnis;
@@ -77,9 +89,13 @@ public class SpeicherHandler {
 	 */
 	public static String put_T(LinkedHashMap<String,Integer> umsatzProTag){
 		String ergebnis = prefUmsTag + prefSeparator;
-		for(Entry<String, Integer> entry : umsatzProTag.entrySet()) {
-			ergebnis+=entry.getKey()+":"+entry.getValue()+";";
-		}	
+		if(umsatzProTag != null) {
+			for(Entry<String, Integer> entry : umsatzProTag.entrySet()) {
+				ergebnis += entry.getKey()+":"+entry.getValue()+";";
+			}
+		}else {
+			log.info("Kein Inhalt zu Speichern.");
+		}
 		ergebnis+="/";
 		log.info("Map zu String: Umsatz pro Wochentag");
 		return ergebnis;
@@ -133,8 +149,11 @@ public class SpeicherHandler {
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");
 						
-						if(isInt(mm[1]));
-						teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						if(mm.length > 1 && isInt(mm[1])) {
+							teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						}else {
+							log.info("Fehlerhafter Eintrag. Verworfen.");
+						}
 					}
 					log.info("Erfolgreich");
 					return teilErgebnis;
@@ -163,8 +182,11 @@ public class SpeicherHandler {
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");
 						
-						if(isInt(mm[1]));
+						if(mm.length > 1 && isInt(mm[1])) {
 						teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						}else {
+							log.info("Fehlerhafter Eintrag. Verworfen.");
+						}
 					}
 					log.info("Erfolgreich");
 					return teilErgebnis;
@@ -194,8 +216,11 @@ public class SpeicherHandler {
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");
 						
-						if(isInt(mm[1]));
+						if(mm.length > 1 && isInt(mm[1])) {
 						teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						}else {
+							log.info("Fehlerhafter Eintrag. Verworfen.");
+						}
 					}
 					log.info("Erfolgreich");
 					return teilErgebnis;
@@ -225,8 +250,10 @@ public class SpeicherHandler {
 					for(int j = 0; j < m1.length; j++) {
 						String []mm = m1[j].split(":");
 						
-						if(isInt(mm[1])) {
+						if(mm.length > 1 && isInt(mm[1])) {
 						teilErgebnis.put(mm[0], Integer.parseInt(mm[1]));
+						} else {
+							log.info("Fehlerhafter Eintrag. Verworfen.");
 						}
 					}
 					log.info("Erfolgreich");

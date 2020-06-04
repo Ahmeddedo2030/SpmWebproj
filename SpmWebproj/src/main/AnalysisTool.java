@@ -311,8 +311,13 @@ public class AnalysisTool {
 	public LinkedHashMap<String, Integer> deckungProArtikel() {
 		Map<String, Integer> deckungsSpanne = readDeckungsspanne();			//Map<Warengruppe, Deckungsspanne> einlesen
 		LinkedHashMap<String, Integer> artikelUmsatz = umsatzProArtikel();		//benutze Methode, um Warengruppen gleich sortiert zu haben
-		
-		Iterator<Map.Entry<String, Integer>> iter = artikelUmsatz.entrySet().iterator();
+		Iterator<Map.Entry<String, Integer>> iter = null;
+		try {
+			iter = artikelUmsatz.entrySet().iterator();
+		} catch (NullPointerException e) {
+			log.info("Analyseteil abgebrochen aufgrund eines Fehlers in der \"Analyse Umsatz pro Artikel\".");
+			return null;
+        }
 		while (iter.hasNext()) {												//Für jeden Eintrag in der Liste
 			Map.Entry<String, Integer> tmp = iter.next();
 			int multiplied = 0;
@@ -638,7 +643,7 @@ public class AnalysisTool {
 			targetAttributes[i] = tmp.index();
 			targetNames += " " + attributes[i];
 			} catch (NullPointerException e) {
-				log.info("Fehler. Attribut " + attributes[i] + " konnte nicht gefunden werden. Filterprozess wurde abrgebrochen");
+				log.info("Fehler. Attribut " + attributes[i] + " konnte nicht gefunden werden. Filterprozess wurde abgebrochen");
 				return null;
 			}
 		}
